@@ -35,8 +35,7 @@ export default {
   buildModules: [],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: [
-  ],
+  modules: [],
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
     manifest: {
@@ -45,14 +44,5 @@ export default {
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
-   build: {
-    loaders: {
-      sass: {
-        implementation: require("sass"),
-      },
-      scss: {
-        implementation: require("sass"),
-      },
-    },
-  },
+  build: {},
 }
