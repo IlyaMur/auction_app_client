@@ -18,7 +18,7 @@ export default {
   css: ['@/assets/scss/main.scss', 'bootstrap/dist/css/bootstrap.css'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ['~plugins/bootstrap.js'],
+  plugins: ['~plugins/bootstrap.js', { src: '~plugins/vform', mode: 'client' }],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
@@ -80,7 +80,7 @@ export default {
           login: { url: '/login', method: 'post', propertyName: 'token' },
           logout: { url: '/auth/logout', method: 'post' },
           user: { url: '/me', method: 'get', propertyName: 'data' }
-      },
+        },
         token: {
           property: 'access_token',
           maxAge: 60 * 60
