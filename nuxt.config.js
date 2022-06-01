@@ -35,7 +35,7 @@ export default {
   buildModules: [],
 
   // Modules: https://go.nuxtjs.dev/config-modules
-  modules: [],
+  modules: ['bootstrap-vue/nuxt'],
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
     manifest: {
