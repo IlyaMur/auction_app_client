@@ -1,12 +1,11 @@
 <template>
   <div class="">
-    <!-- <i class="fas fa-user"></i> -->
-    <fa :icon="['fas', 'user']" />
+    {{ $auth.loggedIn }}
   </div>
 </template>
 
 <script>
 export default {
-  components: {},
+
 }
 </script>
