@@ -1,8 +1,12 @@
 <template>
-
- </template>
+  <div class="">
+    <!-- <i class="fas fa-user"></i> -->
+    <fa :icon="['fas', 'user']" />
+  </div>
+</template>
 
 <script>
-
- </script>
-
+export default {
+  components: {},
+}
+</script>
