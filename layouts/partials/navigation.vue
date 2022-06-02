@@ -6,7 +6,7 @@
         class="navbar-brand text-uppercase fw-500"
         href="#"
         title="Project Name"
-        >DesignHouse</nuxt-link
+        >MyDesign</nuxt-link
       >
       <button
         class="navbar-toggler mr-auto"
@@ -22,10 +22,10 @@
       <div class="collapse navbar-collapse" id="navbar">
         <ul class="navbar-nav font-14 fw-300">
           <li class="nav-item active">
-            <a class="nav-link" href="#" title="Shots">Designs</a>
+            <a class="nav-link" href="#" title="Shots">Дизайны</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#" title="Designers"> Designers </a>
+            <a class="nav-link" href="#" title="Designers"> Дизайнеры </a>
           </li>
         </ul>
         <div class="header-search">
@@ -36,7 +36,7 @@
                 autocomplete="OFF"
                 name="search"
                 class="form-control text-white font-14 fw-300"
-                placeholder="Search and hit enter..."
+                placeholder="Поиск..."
               />
               <div class="search-icon text-white">
                 <i class="fas fa-search"></i>
@@ -48,7 +48,7 @@
           class="upload-shot white-path font-14 fw-500 text-uppercase mr-auto"
         >
           <a href="#" class="primary-bg-color text-white">
-            <i class="fas fa-cloud-upload-alt"></i> Upload
+            <i class="fas fa-cloud-upload-alt"></i> Загрузка
           </a>
         </div>
       </div>
@@ -57,10 +57,10 @@
       <template v-if="!$auth.loggedIn">
         <ul class="before-login font-14 fw-300 text-uppercase">
           <li>
-            <nuxt-link :to="{ name: 'register' }">Sign up </nuxt-link>
+            <nuxt-link style="min-width:110px" :to="{ name: 'register' }"> Регистрация </nuxt-link>
           </li>
           <li>
-            <nuxt-link :to="{ name: 'login' }">Sign in </nuxt-link>
+            <nuxt-link :to="{ name: 'login' }">Вход</nuxt-link>
           </li>
         </ul>
       </template>
