@@ -61,6 +61,7 @@
 
         <div class="text-right">
           <button
+          :disabled="form.busy"
             type="submit"
             class="btn btn-primary primary-bg-color font-16 fw-500 text-uppercase"
           >
