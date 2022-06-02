@@ -22,6 +22,11 @@ const routes = [
     name: 'register',
     component: page('auth/register'),
   },
+  {
+    path: '/verification/verify/:id',
+    name: 'verification',
+    component: page('auth/verification/verify'),
+  },
 ]
 
 export function createRouter() {

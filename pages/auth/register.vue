@@ -5,6 +5,9 @@
         Регистрация
       </h1>
       <form class="auth-form" @submit.prevent="submit">
+        <alert-success class="text-center" :form="form">
+          Мы отправили вам письмо для активации аккаунта.
+        </alert-success>
         <div class="form-group">
           <input
             type="text"
@@ -61,7 +64,7 @@
 
         <div class="text-right">
           <button
-          :disabled="form.busy"
+            :disabled="form.busy"
             type="submit"
             class="btn btn-primary primary-bg-color font-16 fw-500 text-uppercase"
           >
@@ -75,7 +78,7 @@
 
         <p class="font-14 fw-400 text-center mt-4">
           Уже есть аккаунт?
-          <a class="color-blue" href="#"> Вход </a>
+          <nuxt-link class="color-blue" :to="{ name: 'login' }">Вход</nuxt-link>
         </p>
       </form>
     </div>
@@ -102,7 +105,7 @@ export default {
       this.form
         .post(`/register`)
         .then((res) => {
-          console.log(res)
+          this.form.reset()
         })
         .catch((e) => console.log(e))
     },
