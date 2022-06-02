@@ -22,7 +22,6 @@
               placeholder="Email"
             />
             <has-error :form="form" field="email"></has-error>
-
           </div>
 
           <div class="text-right">
@@ -30,7 +29,9 @@
               class="btn btn-primary primary-bg-color font-16 fw-500 text-uppercase"
               :disabled="form.busy"
             >
-              <i class="fas fa-spinner fa-spin"></i>
+              <span v-if="form.busy">
+                <i class="fas fa-spinner fa-spin"></i>
+              </span>
               Выслать
             </button>
           </div>

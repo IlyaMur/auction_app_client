@@ -45,6 +45,7 @@ export default {
     baseURL: process.env.API_URL
   },
 
+
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
     manifest: {
@@ -76,22 +77,20 @@ export default {
 
   auth: {
     strategies: {
-      'laravelJWT': {
-        provider: 'laravel/jwt',
-        url: process.env.API_URL,
-        endpoints: {
-          login: { url: '/login', method: 'post', propertyName: 'token' },
-          logout: { url: '/auth/logout', method: 'post' },
-          user: { url: '/me', method: 'get', propertyName: 'data' }
-        },
+      local: {
         token: {
-          property: 'access_token',
-          maxAge: 60 * 60
+          property: 'token',
+          global: true,
         },
-        refreshToken: {
-          maxAge: 20160 * 60
+        user: {
+          property: 'data',
         },
-      },
+        endpoints: {
+          login: { url: '/login', method: 'post' },
+          logout: { url: '/logout', method: 'post' },
+          user: { url: '/me', method: 'get' }
+        }
+      }
     }
   }
 }

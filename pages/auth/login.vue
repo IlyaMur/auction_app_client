@@ -79,15 +79,12 @@ export default {
   methods: {
     submit() {
       this.$auth
-        .loginWith('laravelJWT', {
+        .loginWith('local', {
           data: this.form,
         })
-        .then((res) => {
-          console.log(res)
+        .then((resp) => {
         })
-        .catch((e) => {
-          this.form.errors.set(e.response.data.errors)
-        })
+        .catch((e) => {})
     },
   },
 }

@@ -57,7 +57,9 @@
       <template v-if="!$auth.loggedIn">
         <ul class="before-login font-14 fw-300 text-uppercase">
           <li>
-            <nuxt-link style="min-width:110px" :to="{ name: 'register' }"> Регистрация </nuxt-link>
+            <nuxt-link style="min-width: 110px" :to="{ name: 'register' }">
+              Регистрация
+            </nuxt-link>
           </li>
           <li>
             <nuxt-link :to="{ name: 'login' }">Вход</nuxt-link>
@@ -106,7 +108,7 @@
                 Setting
               </a>
               <div class="dropdown-divider"></div>
-              <a class="dropdown-item" href="#" title="Sign Out">
+              <a @click.prevent="logout" class="dropdown-item" href="#" title="Sign Out">
                 <i class="fa fa-lock"></i>
                 Sign Out
               </a>
@@ -122,7 +124,13 @@
 </template>
 
 <script>
-export default {}
+export default {
+  methods: {
+    logout(){
+      this.$auth.logout();
+    }
+  }
+}
 </script>
 
 <style></style>
