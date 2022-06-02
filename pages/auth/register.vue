@@ -1,47 +1,61 @@
 <template>
-  <!-- Section Cards -->
   <section class="authentication">
     <div class="auth-body">
-      <h1 class="text-uppercase fw-500 mb-4 text-center font-22">Register</h1>
-      <form class="auth-form">
+      <h1 class="text-uppercase fw-500 mb-4 text-center font-22">
+        Регистрация
+      </h1>
+      <form class="auth-form" @submit.prevent="submit">
         <div class="form-group">
           <input
             type="text"
+            v-model.trim="form.name"
             name="name"
+            :class="{ 'is-invalid': form.errors.has('name') }"
             class="form-control form-control-lg font-14 fw-300"
-            placeholder="Full Name"
+            placeholder="Имя"
           />
+          <has-error :form="form" field="name"></has-error>
         </div>
         <div class="form-group">
           <input
             type="text"
+            v-model.trim="form.username"
             name="username"
+            :class="{ 'is-invalid': form.errors.has('username') }"
             class="form-control form-control-lg font-14 fw-300"
-            placeholder="Username"
+            placeholder="Желаемый юзернейм"
           />
+          <has-error :form="form" field="username"></has-error>
         </div>
         <div class="form-group">
           <input
             type="text"
+            v-model.trim="form.email"
             name="email"
+            :class="{ 'is-invalid': form.errors.has('email') }"
             class="form-control form-control-lg font-14 fw-300"
-            placeholder="Email"
+            placeholder="Почта"
           />
+          <has-error :form="form" field="email"></has-error>
         </div>
         <div class="form-group">
           <input
             type="password"
+            v-model.trim="form.password"
             name="password"
+            :class="{ 'is-invalid': form.errors.has('password') }"
             class="form-control form-control-lg font-14 fw-300"
-            placeholder="Password"
+            placeholder="Пароль"
           />
+          <has-error :form="form" field="password"></has-error>
         </div>
         <div class="form-group">
           <input
             type="password"
+            v-model.trim="form.password_confirmation"
             name="password_confirmation"
             class="form-control form-control-lg font-14 fw-300"
-            placeholder="Confirm Password"
+            placeholder="Подтверждение пароля"
           />
         </div>
 
@@ -50,21 +64,49 @@
             type="submit"
             class="btn btn-primary primary-bg-color font-16 fw-500 text-uppercase"
           >
-            Register
+            <span v-if="form.busy">
+              <i class="fas fa-spinner fa-spin"></i>
+            </span>
+
+            Регистрация
           </button>
         </div>
+
         <p class="font-14 fw-400 text-center mt-4">
-          Already have an account?
-          <a class="color-blue" href="#"> Login</a>
+          Уже есть аккаунт?
+          <a class="color-blue" href="#"> Вход </a>
         </p>
       </form>
     </div>
   </section>
-  <!-- End Cards -->
 </template>
 
 <script>
-export default {}
+import { Form } from 'vform'
+
+export default {
+  data() {
+    return {
+      form: new Form({
+        username: '',
+        name: '',
+        email: '',
+        password: '',
+        password_confirmation: '',
+      }),
+    }
+  },
+  methods: {
+    submit() {
+      this.form
+        .post(`/register`)
+        .then((res) => {
+          console.log(res)
+        })
+        .catch((e) => console.log(e))
+    },
+  },
+}
 </script>
 
 <style></style>

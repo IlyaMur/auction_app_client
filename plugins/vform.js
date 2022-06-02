@@ -12,7 +12,7 @@ Vue.component(HasError.name, HasError);
 Vue.component(AlertError.name, AlertError);
 Vue.component(AlertSuccess.name, AlertSuccess);
 
-export default ({ app }, inject) => {
+export default ({ app }) => {
   Form.prototype.submit = function submit(method, url, config = {}) {
     this.startProcessing();
 
@@ -40,7 +40,4 @@ export default ({ app }, inject) => {
         });
     });
   };
-
-  app.$vform = (...params) => new Form(...params);
-  inject('vform', (...params) => new Form(...params));
 };
