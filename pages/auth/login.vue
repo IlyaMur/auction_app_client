@@ -43,18 +43,12 @@
             </nuxt-link>
           </div>
           <div class="text-right">
-            <base-button>
-            </base-button>
-            <!-- <button
-              :disabled="form.busy"
-              type="submit"
+            <base-button
               class="btn btn-primary primary-bg-color font-16 fw-500 text-uppercase"
+              :loading="form.busy"
             >
-              <span v-if="form.busy">
-                <i class="fas fa-spinner fa-spin"></i>
-              </span>
-              Вход
-            </button> -->
+            Войти
+            </base-button>
           </div>
           <p class="font-14 fw-400 text-center mt-4">
             Ещё нет аккаунта?

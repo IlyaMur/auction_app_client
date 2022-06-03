@@ -26,7 +26,7 @@
               name="username"
               :class="{ 'is-invalid': form.errors.has('username') }"
               class="form-control form-control-lg font-14 fw-300"
-              placeholder="Желаемый юзернейм"
+              placeholder="Юзернейм"
             />
             <has-error :form="form" field="username"></has-error>
           </div>
@@ -58,7 +58,7 @@
               v-model.trim="form.password_confirmation"
               name="password_confirmation"
               class="form-control form-control-lg font-14 fw-300"
-              placeholder="Подтверждение пароля"
+              placeholder="Повторите пароль"
             />
           </div>
           <div class="text-right">
