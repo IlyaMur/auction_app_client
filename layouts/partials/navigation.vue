@@ -4,7 +4,6 @@
       <nuxt-link
         :to="{ name: 'index' }"
         class="navbar-brand text-uppercase fw-500"
-        href="#"
         title="Project Name"
         >MyDesign</nuxt-link
       >

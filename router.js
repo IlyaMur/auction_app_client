@@ -37,6 +37,11 @@ const routes = [
     name: 'password.email',
     component: page('auth/password/reset-email'),
   },
+  {
+    path: '/password/reset/:token',
+    name: 'password.reset',
+    component: page('auth/password/password-reset'),
+  },
 ]
 
 export function createRouter() {

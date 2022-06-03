@@ -4,7 +4,6 @@
       <h1 class="text-uppercase fw-500 mb-4 text-center font-22">
         Регистрация
       </h1>
-      <client-only>
         <form class="auth-form" @submit.prevent="submit">
           <alert-success class="text-center" :form="form">
             Мы отправили вам письмо для активации аккаунта.
@@ -81,7 +80,6 @@
             >
           </p>
         </form>
-      </client-only>
     </div>
   </section>
 </template>

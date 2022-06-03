@@ -45,7 +45,6 @@ export default {
     baseURL: process.env.API_URL
   },
 
-
   // PWA module configuration: https://go.nuxtjs.dev/pwa
   pwa: {
     manifest: {
@@ -64,15 +63,6 @@ export default {
         'window.jQuery': 'jquery',
       }),
     ],
-  },
-
-  fontawesome: {
-    component: 'Fa',
-    suffix: false,
-    icons: {
-      solid: true,
-      brands: true,
-    },
   },
 
   auth: {

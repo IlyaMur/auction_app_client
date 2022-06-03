@@ -1,6 +1,5 @@
 <template>
   <section class="authentication">
-    <client-only>
       <div class="auth-body">
         <h1 class="text-uppercase fw-500 mb-4 text-center font-22">
           Сброс пароля
@@ -37,7 +36,6 @@
           </p>
         </form>
       </div>
-    </client-only>
   </section>
 </template>
 

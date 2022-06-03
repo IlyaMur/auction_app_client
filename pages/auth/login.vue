@@ -1,6 +1,5 @@
 <template>
   <section class="authentication">
-    <client-only>
       <div class="auth-body">
         <h1 class="text-uppercase fw-500 mb-4 text-center font-22">Вход</h1>
         <form @submit.prevent="submit" class="auth-form">
@@ -63,7 +62,6 @@
           </p>
         </form>
       </div>
-    </client-only>
   </section>
 </template>
 
