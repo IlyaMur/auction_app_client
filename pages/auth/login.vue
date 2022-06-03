@@ -36,9 +36,12 @@
             <has-error :form="form" field="password"></has-error>
           </div>
           <div class="mt-4 mb-4 clearfix">
-            <a class="forgot-pass color-blue font-14 fw-400" href="#">
+            <nuxt-link
+              :to="{ name: 'password.email' }"
+              class="forgot-pass color-blue font-14 fw-400"
+            >
               Забыли пароль?
-            </a>
+            </nuxt-link>
           </div>
           <div class="text-right">
             <button
@@ -82,8 +85,7 @@ export default {
         .loginWith('local', {
           data: this.form,
         })
-        .then((resp) => {
-          console.log(resp)
+        .then(() => {
         })
         .catch((e) => {
           this.form.errors.set(e.response.data.errors)
