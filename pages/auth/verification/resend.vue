@@ -25,15 +25,12 @@
           </div>
 
           <div class="text-right">
-            <button
+            <base-button
+              :loading="form.busy"
               class="btn btn-primary primary-bg-color font-16 fw-500 text-uppercase"
-              :disabled="form.busy"
             >
-              <span v-if="form.busy">
-                <i class="fas fa-spinner fa-spin"></i>
-              </span>
               Выслать
-            </button>
+            </base-button>
           </div>
         </form>
       </div>
@@ -54,9 +51,7 @@ export default {
   },
   methods: {
     submit() {
-      this.form
-        .post(`/verification/resend`)
-        .then((res) => this.form.reset())
+      this.form.post(`/verification/resend`).then((res) => this.form.reset())
     },
   },
 }
