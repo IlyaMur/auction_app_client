@@ -21,10 +21,15 @@ export default {
   css: ['@/assets/scss/main.scss', 'bootstrap/dist/css/bootstrap.css'],
 
   // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
-  plugins: ['~plugins/bootstrap.js', { src: '~plugins/vform', mode: 'client' }],
+  plugins: [
+    '~plugins/bootstrap.js',
+    { src: '~plugins/vform', mode: 'client' },
+  ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
-  components: true,
+  components: [
+    '~components/_global/buttons/',
+  ],
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: ['@nuxtjs/fontawesome', '@nuxtjs/router'],

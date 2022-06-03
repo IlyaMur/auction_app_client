@@ -57,7 +57,6 @@ export default {
       this.form
         .post(`/verification/resend`)
         .then((res) => this.form.reset())
-        .catch((e) => console.log(e))
     },
   },
 }

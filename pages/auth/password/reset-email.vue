@@ -59,9 +59,7 @@ export default {
           this.status = res.data.status
           this.form.reset()
         })
-        .catch((e) => {
-          console.log(e)
-        })
+
     },
   },
 }

@@ -7,7 +7,7 @@
       <form @submit.prevent="submit" class="auth-form">
         <alert-success :form="form">
           {{ status }}
-          <p>
+          <p v-if="status">
             <nuxt-link :to="{ name: 'login' }">Войти</nuxt-link>
           </p>
         </alert-success>
@@ -98,12 +98,9 @@ export default {
       this.form
         .post('/password/reset')
         .then((res) => {
-          console.log(res.data.status)
           this.status = res.data.status
-          this.form.reset()
         })
         .catch((e) => {
-          // console.log(e.response.data.message)
           this.form.errors.set(e.response.data)
         })
     },
