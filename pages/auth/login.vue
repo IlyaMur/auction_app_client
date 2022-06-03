@@ -83,8 +83,11 @@ export default {
           data: this.form,
         })
         .then((resp) => {
+          console.log(resp)
         })
-        .catch((e) => {})
+        .catch((e) => {
+          this.form.errors.set(e.response.data.errors)
+        })
     },
   },
 }
