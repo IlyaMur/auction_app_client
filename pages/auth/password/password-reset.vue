@@ -15,16 +15,13 @@
           {{ form.errors.get('message') }}
         </alert-error>
         <div class="form-group">
-          <input
-            readonly
-            type="text"
-            name="email"
-            v-model.trim="form.email"
-            class="form-control form-control-lg font-14 fw-300"
-            :class="{ 'is-invalid': form.errors.has('email') }"
+          <base-input
+            :readonly="true"
+            field="email"
+            :form="form"
+            v-model="form.email"
             placeholder="Почта"
-          />
-          <has-error :form="form" field="email"></has-error>
+          ></base-input>
         </div>
         <div class="form-group">
           <input
@@ -62,7 +59,7 @@
             :loading="form.busy"
             class="btn btn-primary primary-bg-color font-16 fw-500 text-uppercase"
           >
-           Изменить пароль
+            Изменить пароль
           </base-button>
         </div>
       </form>

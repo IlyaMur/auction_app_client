@@ -7,15 +7,12 @@
       <form @submit.prevent="submit" class="auth-form">
         <alert-success :form="form">{{ status }}</alert-success>
         <div class="form-group">
-          <input
-            type="text"
-            name="email"
+          <base-input
+            field="email"
+            :form="form"
             v-model="form.email"
-            class="form-control form-control-lg font-14 fw-300"
-            :class="{ 'is-invalid': form.errors.has('email') }"
             placeholder="Почта"
-          />
-          <has-error :form="form" field="email"></has-error>
+          ></base-input>
         </div>
         <div class="text-center">
           <base-button

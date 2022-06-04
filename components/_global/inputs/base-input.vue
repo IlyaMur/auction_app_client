@@ -1,6 +1,7 @@
 <template>
   <div>
     <input
+      :readonly="readonly"
       :type="inputType"
       class="form-control form-control-lg font-14 fw-300"
       :placeholder="placeholder"
@@ -22,11 +23,15 @@ export default {
   props: {
     form: {
       type: Object,
-      required: true
+      required: true,
     },
     field: {
       type: String,
       required: true,
+    },
+    readonly: {
+      type: Boolean,
+      required: false,
     },
     value: {
       type: String,

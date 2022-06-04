@@ -9,57 +9,46 @@
           Мы отправили вам письмо для активации аккаунта.
         </alert-success>
         <div class="form-group">
-          <input
-            type="text"
-            v-model.trim="form.name"
-            name="name"
-            :class="{ 'is-invalid': form.errors.has('name') }"
-            class="form-control form-control-lg font-14 fw-300"
+          <base-input
+            field="name"
+            :form="form"
+            v-model="form.name"
             placeholder="Имя"
-          />
-          <has-error :form="form" field="name"></has-error>
+          ></base-input>
         </div>
         <div class="form-group">
-          <input
-            type="text"
+          <base-input
+            field="username"
+            :form="form"
             v-model.trim="form.username"
-            name="username"
-            :class="{ 'is-invalid': form.errors.has('username') }"
-            class="form-control form-control-lg font-14 fw-300"
             placeholder="Юзернейм"
-          />
-          <has-error :form="form" field="username"></has-error>
+          ></base-input>
         </div>
         <div class="form-group">
-          <input
-            type="text"
+          <base-input
+            field="email"
+            :form="form"
             v-model.trim="form.email"
-            name="email"
-            :class="{ 'is-invalid': form.errors.has('email') }"
-            class="form-control form-control-lg font-14 fw-300"
             placeholder="Почта"
-          />
-          <has-error :form="form" field="email"></has-error>
+          ></base-input>
         </div>
         <div class="form-group">
-          <input
-            type="password"
+          <base-input
+            inputType="password"
+            field="password"
+            :form="form"
             v-model.trim="form.password"
-            name="password"
-            :class="{ 'is-invalid': form.errors.has('password') }"
-            class="form-control form-control-lg font-14 fw-300"
             placeholder="Пароль"
-          />
-          <has-error :form="form" field="password"></has-error>
+          ></base-input>
         </div>
         <div class="form-group">
-          <input
-            type="password"
+          <base-input
+            inputType="password"
+            field="password_confirmation"
+            :form="form"
             v-model.trim="form.password_confirmation"
-            name="password_confirmation"
-            class="form-control form-control-lg font-14 fw-300"
             placeholder="Повторите пароль"
-          />
+          ></base-input>
         </div>
         <div class="text-right">
           <base-button

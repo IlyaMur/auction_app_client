@@ -13,15 +13,12 @@
             Мы отправили вам на почту письмо с активацией
           </alert-success>
           <div class="form-group">
-            <input
-              type="text"
-              name="email"
+            <base-input
+              field="email"
+              :form="form"
               v-model="form.email"
-              class="form-control form-control-lg font-14 fw-300"
-              :class="{ 'is-invalid': form.errors.has('email') }"
-              placeholder="Email"
-            />
-            <has-error :form="form" field="email"></has-error>
+              placeholder="Почта"
+            ></base-input>
           </div>
 
           <div class="text-right">
