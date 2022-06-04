@@ -39,6 +39,7 @@
 import { Form } from 'vform'
 
 export default {
+  middleware: ['guest'],
   data() {
     return {
       form: new Form({

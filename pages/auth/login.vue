@@ -60,6 +60,7 @@
 import { Form } from 'vform'
 
 export default {
+  middleware: ['guest'],
   data() {
     return {
       evalue: '',

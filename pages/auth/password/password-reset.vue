@@ -71,6 +71,7 @@
 import { Form } from 'vform'
 
 export default {
+  middleware: ['guest'],
   created() {
     this.form.email = this.$route.query.email
     this.form.token = this.$route.params.token
