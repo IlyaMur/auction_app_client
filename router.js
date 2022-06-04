@@ -42,6 +42,21 @@ const routes = [
     name: 'password.reset',
     component: page('auth/password/password-reset'),
   },
+  {
+    path: '/user/dashboard',
+    name: 'user.dashboard',
+    component: page('user/dashboard'),
+  },
+  {
+    path: '/upload',
+    name: 'designs.upload',
+    component: page('user/designs/create'),
+  },
+  {
+    path: '/designs/:id/edit',
+    name: 'designs.edit',
+    component: page('user/designs/edit'),
+  },
 ]
 
 export function createRouter() {
