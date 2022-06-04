@@ -2,57 +2,65 @@
   <div>
     <section class="hero text-center bg-secondary text-white">
       <div class="container">
-        <h1 class="font-28 fw-600 text-uppercase">Upload a design</h1>
+        <h1 class="font-28 fw-600 text-uppercase">Загрузка дизайна</h1>
       </div>
     </section>
-      <div class="upload-shot">
-                <div class="container">
-                    <div
-                        class="row justify-content-center align-items-center text-center"
-                    >
-                        <div class="col-md-5">
-                            <div class="upload white-bg-color">
-                                <form>
-                                    <div class="box-input">
-                                        <div class="uload-icon font-28">
-                                            <i
-                                                class="fas fa-cloud-upload-alt"
-                                            ></i>
-                                        </div>
-                                        <label
-                                            class="fileContainer font-18 fw-500"
-                                        >
-                                            <input type="file" />
-                                            <span
-                                                >Drag an image here or
-                                                <a>Browse</a> for an image to
-                                                upload.</span
-                                            >
-                                        </label>
-                                    </div>
-                                </form>
-                            </div>
-                            <div class="upload-para mt-2">
-                                <p class="font-14 fw-400">
-                                    JPG, GIF or PNG. Dribbble shots are
-                                    <strong>400 × 300</strong> pixels or
-                                    <strong>800 × 600</strong> (for HiDPI
-                                    displays).
-                                </p>
-                                <p class="font-12 fw-300">
-                                    If your image is bigger than the sizes
-                                    above, we’ll help you crop it.
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+    <div class="upload-shot">
+      <div class="container">
+        <div class="row justify-content-center align-items-center text-center">
+          <div class="col-md-6">
+            <div class="card bg-white shadow-sm">
+              <div class="d-flex flex-column justify-content-center p-1">
+                <div class="alert alert-danger" v-if="error">
+                  <p>Во время загрузки произошла ошибка</p>
+                  <p>{{ error }}</p>
                 </div>
+                <slim-cropper :options="slimOptions">
+                  <input type="file" name="image" />
+                </slim-cropper>
+              </div>
             </div>
+            <div class="text-success caption-sm mt-2" v-if="uploading">
+              <i class="fa fa-spinner fa-spin"></i>
+            </div>
+            <div class="upload-para mt-2">
+              <p class="font-14 fw-400">
+                JPG, GIF или PNG. <br />
+                <strong>800 × 600</strong> - минимальное разрешение.<br />
+                <strong>2 мегабайта</strong> - максимальный размер.
+              </p>
+              <p class="font-12 fw-300">
+                Мы поможем вам обрезать изображение перед загрузкой.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
-export default {}
+import Slim from '~/components/slim/slim'
+
+export default {
+  middleware: ['auth'],
+  components: {
+    'slim-cropper': Slim,
+  },
+  data() {
+    return {
+      slimOptions: {
+        label: 'Перетяните сюда изображение',
+        buttonCancelLabel: 'Отменить',
+        buttonConfirmLabel: 'Подтвердить',
+      },
+      uploading: false,
+      error: '',
+    }
+  },
+  methods: {},
+}
 </script>
 
 <style></style>

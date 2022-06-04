@@ -46,9 +46,12 @@
         <div
           class="upload-shot white-path font-14 fw-500 text-uppercase mr-auto"
         >
-          <a href="#" class="primary-bg-color text-white">
+          <nuxt-link
+            class="primary-bg-color text-white"
+            :to="{name: 'designs.upload'}"
+          >
             <i class="fas fa-cloud-upload-alt"></i> Загрузка
-          </a>
+          </nuxt-link>
         </div>
       </div>
 
@@ -107,7 +110,12 @@
                 Setting
               </a>
               <div class="dropdown-divider"></div>
-              <a @click.prevent="logout" class="dropdown-item" href="#" title="Sign Out">
+              <a
+                @click.prevent="logout"
+                class="dropdown-item"
+                href="#"
+                title="Sign Out"
+              >
                 <i class="fa fa-lock"></i>
                 Sign Out
               </a>
@@ -125,10 +133,10 @@
 <script>
 export default {
   methods: {
-    logout(){
-      this.$auth.logout();
-    }
-  }
+    logout() {
+      this.$auth.logout()
+    },
+  },
 }
 </script>
 
