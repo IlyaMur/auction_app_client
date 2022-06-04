@@ -29,6 +29,7 @@ export default {
   // Auto import components: https://go.nuxtjs.dev/config-components
   components: [
     '~components/_global/buttons/',
+    '~components/_global/inputs/',
   ],
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
