@@ -18,19 +18,15 @@
                 <slim-cropper :options="slimOptions">
                   <input type="file" name="image" />
                 </slim-cropper>
+                <div class="text-success caption-sm mt-2" v-if="uploading">
+                  <i class="fas fa-spinner fa-spin"></i>
+                </div>
               </div>
-            </div>
-            <div class="text-success caption-sm mt-2" v-if="uploading">
-              <i class="fa fa-spinner fa-spin"></i>
             </div>
             <div class="upload-para mt-2">
               <p class="font-14 fw-400">
-                JPG, GIF или PNG. <br />
-                <strong>800 × 600</strong> - минимальное разрешение.<br />
-                <strong>2 мегабайта</strong> - максимальный размер.
-              </p>
-              <p class="font-12 fw-300">
-                Мы поможем вам обрезать изображение перед загрузкой.
+                Минимальное разрешение: 800 x 600px. <br />
+                Максимальный размер: 2 мегабайта. <br />
               </p>
             </div>
           </div>
@@ -51,15 +47,46 @@ export default {
   data() {
     return {
       slimOptions: {
-        label: 'Перетяните сюда изображение',
-        buttonCancelLabel: 'Отменить',
-        buttonConfirmLabel: 'Подтвердить',
+        statusFileType: '<p>Некорректный формат файла, разрешены: $0.</p>',
+        statusFileSize:
+          '<p>Файл слишком большой, максимальный размер: $0 MB.</p>',
+        statusImageTooSmall:
+          '<p>Изображение слишком маленькое, минимальный размер: $0 px</p>',
+        serviceFormat: 'file',
+        service: this.slimService,
+        post: 'output',
+        defaultInputName: 'image',
+        minSize: '800,600',
+        label: 'Выберите изображение...',
+        maxFileSize: 2,
       },
       uploading: false,
       error: '',
     }
   },
-  methods: {},
+
+  methods: {
+    slimService(blobs, progress, success, failure, slim) {
+      const formData = new FormData()
+      formData.append('image', blobs[0], blobs[0].name)
+      this.uploading = true
+
+      this.$axios
+        .post('/designs', formData)
+        .then((res) => {
+          this.$router.push({
+            name: 'designs.edit',
+            params: { id: res.data.id },
+          })
+        })
+        .catch((err) => {
+          const message = err.response.data.errors
+          this.error = message[Object.keys(message)[0]][0]
+          failure(500)
+        })
+        .finally(() => (this.uploading = false))
+    },
+  },
 }
 </script>
 
