@@ -35,7 +35,7 @@
                 </div>
                 <div class="form-group">
                   <client-only>
-                    <input type="text" placeholder="42">
+                    <input type="text" placeholder="42" />
                   </client-only>
                 </div>
                 <template>
@@ -61,8 +61,7 @@
                       v-model="form.team"
                     >
                       <option :value="null">Select a team</option>
-                      <option>
-                      </option>
+                      <option></option>
                     </select>
                     <has-error :form="form" field="team"></has-error>
                   </div>
@@ -119,13 +118,34 @@ export default {
   methods: {
     submit() {},
   },
-  mounted() {},
+  mounted() {
+    if (!this.design) return;
+
+    Object.keys(this.form).forEach((key) => {
+      if (this.design.data.hasOwnProperty(key)) {
+        this.form[key] = this.design.data[key]
+      }
+    });
+
+    this.form.tags = this.design.data.tag_list.tags || [];
+
+    if (this.design.data.team) {
+      this.form.team = this.design.data.team.id;
+      this.form.assign_to_team = true;
+    };
+  },
   async asyncData({ $axios, params, error, redirect }) {
     try {
       const design = await $axios.get(`/designs/${params.id}`)
 
-      return {design: design.data}
-    } catch (e) {}
+      return { design: design.data }
+    } catch (e) {
+      if (e.response.status === 404) {
+        error({statusCode: 404, message: 'Дизайн не был найден'})
+      } else {
+        error({statusCode: 500, message: 'Произошла непредвиденная ошибка'})
+      }
+    }
   },
 }
 </script>
