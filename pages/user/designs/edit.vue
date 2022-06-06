@@ -80,7 +80,6 @@
                       </option>
                     </select>
                     <has-error :form="form" field="team"></has-error>
-                    <has-error :form="form" field="team"></has-error>
                   </div>
                 </template>
                 <div class="form-group custom-control custom-checkbox">
@@ -137,7 +136,11 @@ export default {
     }
   },
   methods: {
-    submit() {},
+    submit() {
+      this.form.put(`/designs/${this.$route.params.id}`)
+      .then(res => console.log(res))
+      .catch(e => console.log(e.response));
+    },
   },
   mounted() {
     if (!this.design) return
@@ -153,6 +156,8 @@ export default {
     if (this.design.data.team) {
       this.form.team = this.design.data.team.id
       this.form.assign_to_team = true
+    } else {
+      this.form.assign_to_team = false
     }
 
     this.imgURL = this.design.data.images.large
