@@ -102,7 +102,10 @@
                   <nuxt-link :to="{ name: 'settings.designs' }"
                     >Отменить</nuxt-link
                   >
-                  <base-button :loading="form.busy">
+                  <base-button
+                    class="btn btn-primary primary-bg-color font-16 fw-500 text-uppercase"
+                    :loading="form.busy"
+                  >
                     Обновить дизайн
                   </base-button>
                 </div>
@@ -137,9 +140,10 @@ export default {
   },
   methods: {
     submit() {
-      this.form.put(`/designs/${this.$route.params.id}`)
-      .then(res => console.log(res))
-      .catch(e => console.log(e.response));
+      this.form
+        .put(`/designs/${this.$route.params.id}`)
+        .then((res) => console.log(res))
+        .catch((e) => console.log(e.response))
     },
   },
   mounted() {
@@ -161,11 +165,10 @@ export default {
     }
 
     this.imgURL = this.design.data.images.large
-
   },
   async asyncData({ $axios, params, error, redirect }) {
     try {
-      const design = await $axios.get(`/designs/${params.id}`)
+      const design = await $axios.get(`/designs/${params.id}/byUser`)
       const teams = await $axios.get(`/users/teams/`)
 
       return { design: design.data, teams: teams.data }
