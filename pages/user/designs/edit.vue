@@ -18,27 +18,32 @@
         <div class="col-md-6">
           <div class="card">
             <div class="card-body">
-              <form class="auth-form">
+              <form class="auth-form" @submit.prevent="submit">
                 <alert-success :form="form">
-                  Design successfully updated
+                  Дизайн успешно обновлен
                 </alert-success>
                 <div class="form-group">
                   <base-input
                     :form="form"
                     field="title"
                     v-model="form.title"
-                    placeholder="Enter a title"
+                    placeholder="Заголовок..."
                   ></base-input>
                 </div>
                 <div class="form-group">
-                  <textarea name="" id="" cols="30" rows="10">42</textarea>
+                   <base-textarea
+                    :form="form"
+                    field="description"
+                    v-model="form.description"
+                    placeholder="Описание дизайна..."
+                  ></base-textarea>
                 </div>
                 <div class="form-group">
                   <client-only>
                     <input type="text" placeholder="42" />
                   </client-only>
                 </div>
-                <template>
+                <template v-if="teams.data.length">
                   <div class="form-group custom-control custom-checkbox">
                     <input
                       type="checkbox"
@@ -51,18 +56,26 @@
                       value="true"
                       for="assign_to_team"
                     >
-                      Assign to team
+                      Закрепить за командой
                     </label>
                   </div>
                   <div class="form-group">
                     <select
-                      class="custom-select"
                       :class="{ 'is-invalid': form.errors.has('team') }"
+                      :disabled="!form.assign_to_team"
+                      class="custom-select"
                       v-model="form.team"
                     >
-                      <option :value="null">Select a team</option>
-                      <option></option>
+                      <option :value="null">Выберите команду</option>
+                      <option
+                        v-for="team in teams.data"
+                        :key="team.id"
+                        :value="team.id"
+                      >
+                        {{ team.name }}
+                      </option>
                     </select>
+                    <has-error :form="form" field="team"></has-error>
                     <has-error :form="form" field="team"></has-error>
                   </div>
                 </template>
@@ -78,16 +91,16 @@
                     value="true"
                     for="is_live"
                   >
-                    Publish this design
+                    Опубликовать этот дизайн
                   </label>
                 </div>
 
                 <div class="text-right">
                   <nuxt-link :to="{ name: 'settings.designs' }"
-                    >Cancel</nuxt-link
+                    >Отменить</nuxt-link
                   >
                   <base-button :loading="form.busy">
-                    Update Design
+                    Обновить дизайн
                   </base-button>
                 </div>
               </form>
@@ -101,8 +114,10 @@
 
 <script>
 import { Form } from 'vform'
+import baseTextarea from '../../../components/_global/inputs/base-textarea.vue'
 
 export default {
+  components: { baseTextarea },
   data() {
     return {
       form: new Form({
@@ -119,31 +134,32 @@ export default {
     submit() {},
   },
   mounted() {
-    if (!this.design) return;
+    if (!this.design) return
 
     Object.keys(this.form).forEach((key) => {
       if (this.design.data.hasOwnProperty(key)) {
         this.form[key] = this.design.data[key]
       }
-    });
+    })
 
-    this.form.tags = this.design.data.tag_list.tags || [];
+    this.form.tags = this.design.data.tag_list.tags || []
 
     if (this.design.data.team) {
-      this.form.team = this.design.data.team.id;
-      this.form.assign_to_team = true;
-    };
+      this.form.team = this.design.data.team.id
+      this.form.assign_to_team = true
+    }
   },
   async asyncData({ $axios, params, error, redirect }) {
     try {
       const design = await $axios.get(`/designs/${params.id}`)
+      const teams = await $axios.get(`/users/teams/`)
 
-      return { design: design.data }
+      return { design: design.data, teams: teams.data }
     } catch (e) {
       if (e.response.status === 404) {
-        error({statusCode: 404, message: 'Дизайн не был найден'})
+        error({ statusCode: 404, message: 'Дизайн не был найден' })
       } else {
-        error({statusCode: 500, message: 'Произошла непредвиденная ошибка'})
+        error({ statusCode: 500, message: 'Произошла непредвиденная ошибка' })
       }
     }
   },
