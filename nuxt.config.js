@@ -33,7 +33,8 @@ export default {
   ],
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
-  buildModules: ['@nuxtjs/fontawesome', '@nuxtjs/router'],
+  target: 'static',
+  buildModules: ['@nuxtjs/fontawesome', '@nuxtjs/router', '@nuxt/image',],
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
@@ -41,6 +42,10 @@ export default {
     '@nuxtjs/axios',
     '@nuxtjs/auth-next'
   ],
+
+  image: {
+    domains: ['http://localhost']
+  },
 
   publicRuntimeConfig: {
     BASE_URL: process.env.BASE_URL,

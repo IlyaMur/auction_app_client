@@ -10,8 +10,8 @@
       <div class="row">
         <div class="col-md-6">
           <div class="card">
-            <div class="card-body p-1">
-              <img src="some" class="w-100 mb-4" />
+            <div class="card-body p-1" v-if="design.data.images">
+              <nuxt-img :src="design.data.images.large" class="w-100 mb-4" />
             </div>
           </div>
         </div>
@@ -31,7 +31,7 @@
                   ></base-input>
                 </div>
                 <div class="form-group">
-                   <base-textarea
+                  <base-textarea
                     :form="form"
                     field="description"
                     v-model="form.description"
@@ -40,7 +40,11 @@
                 </div>
                 <div class="form-group">
                   <client-only>
-                    <input type="text" placeholder="42" />
+                    <better-input-tag
+                      :tags="form.tags"
+                      placeholder="Тэги через запятую"
+                      on-paste-delimiter=","
+                    ></better-input-tag>
                   </client-only>
                 </div>
                 <template v-if="teams.data.length">
@@ -113,11 +117,13 @@
 </template>
 
 <script>
+import BetterInputTag from 'better-vue-input-tag'
 import { Form } from 'vform'
-import baseTextarea from '../../../components/_global/inputs/base-textarea.vue'
 
 export default {
-  components: { baseTextarea },
+  components: {
+    BetterInputTag,
+  },
   data() {
     return {
       form: new Form({
@@ -148,6 +154,9 @@ export default {
       this.form.team = this.design.data.team.id
       this.form.assign_to_team = true
     }
+
+    this.imgURL = this.design.data.images.large
+
   },
   async asyncData({ $axios, params, error, redirect }) {
     try {
