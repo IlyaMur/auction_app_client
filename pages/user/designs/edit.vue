@@ -99,9 +99,7 @@
                 </div>
 
                 <div class="text-right">
-                  <nuxt-link :to="{ name: 'settings.designs' }"
-                    >Отменить</nuxt-link
-                  >
+                  <a href="#">Отменить </a>
                   <base-button
                     class="btn btn-primary primary-bg-color font-16 fw-500 text-uppercase"
                     :loading="form.busy"
@@ -143,7 +141,11 @@ export default {
     submit() {
       this.form
         .put(`/designs/${this.$route.params.id}`)
-        .then((res) => console.log(res))
+        .then((res) => {
+          setTimeout(() => {
+            this.$router.push({ name: 'settings.dashboard' })
+          }, 1000)
+        })
         .catch((e) => console.log(e.response))
     },
   },

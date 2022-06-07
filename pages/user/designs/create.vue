@@ -74,10 +74,12 @@ export default {
       this.$axios
         .post('/designs', formData)
         .then((res) => {
-          this.$router.push({
-            name: 'designs.edit',
-            params: { id: res.data.id },
-          })
+          setTimeout(() => {
+            this.$router.push({
+              name: 'designs.edit',
+              params: { id: res.data.id },
+            })
+          }, 2000)
         })
         .catch((err) => {
           const message = err.response.data.errors
