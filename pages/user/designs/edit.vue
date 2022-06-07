@@ -19,9 +19,11 @@
           <div class="card">
             <div class="card-body">
               <form class="auth-form" @submit.prevent="submit">
-                <alert-success :form="form">
-                  Дизайн успешно обновлен
-                </alert-success>
+                <client-only>
+                  <alert-success :form="form">
+                    Дизайн успешно обновлен
+                  </alert-success>
+                </client-only>
                 <div class="form-group">
                   <base-input
                     :form="form"

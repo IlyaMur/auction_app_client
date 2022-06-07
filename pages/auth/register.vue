@@ -5,9 +5,11 @@
         Регистрация
       </h1>
       <form class="auth-form" @submit.prevent="submit">
-        <alert-success class="text-center" :form="form">
-          Мы отправили вам письмо для активации аккаунта.
-        </alert-success>
+        <client-only>
+          <alert-success class="text-center" :form="form">
+            Мы отправили вам письмо для активации аккаунта.
+          </alert-success>
+        </client-only>
         <div class="form-group">
           <base-input
             field="name"

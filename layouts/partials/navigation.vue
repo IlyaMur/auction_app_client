@@ -111,7 +111,7 @@
               </nuxt-link>
               <nuxt-link
                 :to="{ name: 'settings.dashboard' }"
-                class="dropdown-item mt-28"
+                class="dropdown-item"
                 title="Панель управления"
               >
                 <i class="fa fa-tachometer-alt"></i>

@@ -77,7 +77,7 @@ export default {
           setTimeout(() => {
             this.$router.push({
               name: 'designs.edit',
-              params: { id: res.data.id },
+              params: { id: res.data.data.id },
             })
           }, 2000)
         })

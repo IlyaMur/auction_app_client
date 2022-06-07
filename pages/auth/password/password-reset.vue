@@ -5,12 +5,14 @@
         Сброс старого пароля
       </h1>
       <form @submit.prevent="submit" class="auth-form">
-        <alert-success :form="form">
-          {{ status }}
-          <p v-if="status">
-            <nuxt-link :to="{ name: 'login' }">Войти</nuxt-link>
-          </p>
-        </alert-success>
+        <client-only>
+          <alert-success :form="form">
+            {{ status }}
+            <p>
+              <nuxt-link :to="{ name: 'login' }">Войти</nuxt-link>
+            </p>
+          </alert-success>
+        </client-only>
         <alert-error v-if="form.errors.has('message')" :form="form">
           {{ form.errors.get('message') }}
         </alert-error>
