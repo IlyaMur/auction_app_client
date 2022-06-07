@@ -48,7 +48,7 @@
         >
           <nuxt-link
             class="primary-bg-color text-white"
-            :to="{name: 'designs.upload'}"
+            :to="{ name: 'designs.upload' }"
           >
             <i class="fas fa-cloud-upload-alt"></i> Загрузка
           </nuxt-link>
@@ -99,15 +99,27 @@
               aria-labelledby="userDropdown"
             >
               <div class="dropdown-title-group font-12 fw-500">
-                <span class="dropdown-title text-uppercase">Your Account</span>
+                <span class="dropdown-title text-uppercase">Ваш аккаунт</span>
               </div>
-              <a class="dropdown-item mt-28" href="#" title="Profile">
+              <nuxt-link
+                :to="{ name: 'settings.profile' }"
+                class="dropdown-item mt-28"
+                title="Profile"
+              >
                 <i class="fa fa-user"></i>
-                Profile
-              </a>
+                Профиль
+              </nuxt-link>
+              <nuxt-link
+                :to="{ name: 'settings.dashboard' }"
+                class="dropdown-item mt-28"
+                title="Панель управления"
+              >
+                <i class="fa fa-tachometer-alt"></i>
+                Панель управления
+              </nuxt-link>
               <a class="dropdown-item" href="#" title="Setting">
                 <i class="fa fa-cogs"></i>
-                Setting
+                Настройки
               </a>
               <div class="dropdown-divider"></div>
               <a
@@ -117,7 +129,7 @@
                 title="Sign Out"
               >
                 <i class="fa fa-lock"></i>
-                Sign Out
+                Выход
               </a>
             </div>
           </li>

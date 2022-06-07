@@ -123,6 +123,7 @@ import BetterInputTag from 'better-vue-input-tag'
 import { Form } from 'vform'
 
 export default {
+  middleware: ['auth'],
   components: {
     BetterInputTag,
   },

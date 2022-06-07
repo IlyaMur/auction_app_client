@@ -57,6 +57,23 @@ const routes = [
     name: 'designs.edit',
     component: page('user/designs/edit'),
   },
+  {
+    path: '/settings',
+    component: page('user/settings'),
+    children: [
+      { path: '', redirect: { name: 'settings.dashboard' } },
+      {
+        path: 'dashboard',
+        name: 'settings.dashboard',
+        component: page('user/settings/dashboard')
+      },
+      {
+        path: 'profile',
+        name: 'settings.profile',
+        component: page('user/settings/profile')
+      }
+    ]
+  },
 ]
 
 export function createRouter() {
