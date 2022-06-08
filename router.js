@@ -59,6 +59,7 @@ const routes = [
   },
   {
     path: '/settings',
+    name: 'settings',
     component: page('user/settings'),
     children: [
       { path: '', redirect: { name: 'settings.dashboard' } },
