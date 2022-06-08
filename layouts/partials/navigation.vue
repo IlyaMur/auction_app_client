@@ -81,14 +81,18 @@
               aria-haspopup="true"
               aria-expanded="false"
             >
-              <img
+              <nuxt-img
+                :src="$auth.user.photo_url"
                 class="user-thumb"
-                src="~assets/images/profile.png"
-                alt="Ilya Mur"
+                alt="user avatar"
               />
               <div class="usr-info">
-                <span class="user-name font-14 fw-500">John Doe</span>
-                <span class="user-deg font-10 fw-300">Sr. UI Designer</span>
+                <span class="user-name font-14 fw-500">{{
+                  $auth.user.name
+                }}</span>
+                <span class="user-deg font-10 fw-300">{{
+                  $auth.user.tagline || ''
+                }}</span>
                 <span class="down-chevron">
                   <i class="fa fa-angle-down"></i>
                 </span>

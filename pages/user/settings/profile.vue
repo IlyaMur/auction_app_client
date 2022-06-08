@@ -163,12 +163,12 @@ export default {
         })
       }
 
-      this.form
+      await this.form
         .put(`/settings/profile`)
-        .then((res) => {
-          console.log(res)
-        })
+        .then(() => {})
         .catch((e) => console.log(e))
+
+      await this.$auth.fetchUser()
     },
   },
 
@@ -179,7 +179,7 @@ export default {
   },
 
   async asyncData(context) {
-    const hasCoords = context.$auth.user.location?.coordinates
+    const hasCoords = Boolean(context.$auth.user.location?.coordinates)
 
     const coords = [
       context.$auth.user.location?.coordinates[0] || 55.7471259277933, // default coordinates if null (Moscow city)

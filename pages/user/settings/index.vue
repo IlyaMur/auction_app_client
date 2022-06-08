@@ -35,7 +35,7 @@ export default {
       links: [
         { title: 'Панель управления', route: 'settings.dashboard' },
         { title: 'Настройки профиля', route: 'settings.profile' },
-        { title: 'Дизайны', route: 'settings.designs' },
+        { title: 'Мои работы', route: 'settings.designs' },
       ],
     }
   },
