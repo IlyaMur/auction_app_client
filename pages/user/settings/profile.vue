@@ -29,11 +29,27 @@
               >
               </base-input>
             </div>
-            <div class="form-group">
+
+            <template v-if="hasCoords">
+              Ваше местоположение:
+              {{ form.formatted_address }}
+            </template>
+            <div class="form-group mt-2 custom-control custom-checkbox">
+              <input
+                type="checkbox"
+                class="custom-control-input"
+                id="showMap"
+                v-model="showMap"
+              />
+              <label class="custom-control-label" value="true" for="showMap">
+                {{ hasCoords ? 'Изменить' : 'Указать' }} местоположение
+              </label>
+            </div>
+
+            <div class="form-group" v-if="showMap">
               <span class="font-16">Выберите местоположение:</span>
 
               <p class="font-14 mb-3 mt-1">
-                {{ place }}
                 <br />
                 {{ coords[0] | roundCoords }} /
                 {{ coords[1] | roundCoords }}
@@ -46,7 +62,6 @@
                   :init-without-markers="false"
                   :zoom="10"
                   @click="onClick"
-                  @actionend="onActionEnd"
                 >
                   <ymap-marker
                     @click="onClick"
@@ -103,28 +118,22 @@ export default {
   data() {
     return {
       place: '',
+      showMap: false,
       coords: [],
       form: new Form({
         name: '',
         about: '',
         tagline: '',
         formatted_address: '',
-        location: {},
+        location: { longitude: null, latitude: null },
         available_to_hire: false,
       }),
     }
   },
   methods: {
-    onClick(e) {
-      this.coords = e.get('coords')
-    },
-    onActionEnd() {
-      this.getPlace()
-    },
-    update() {},
     async getPlace() {
-      await this.$axios
-        .get(
+      try {
+        const resp = await this.$axios.get(
           'https://geocode-maps.yandex.ru/1.x/?apikey=' +
             this.$config.YANDEX_MAPS_API_KEY +
             '&format=json' +
@@ -133,10 +142,33 @@ export default {
             ',' +
             this.coords[0]
         )
-        .then((res) => {
-          this.place =
-            res.data.response.GeoObjectCollection.featureMember[1].GeoObject.description
+        this.place = await resp.data.response.GeoObjectCollection
+          .featureMember[1].GeoObject.description
+      } catch (error) {
+        console.log(error)
+      }
+    },
+    onClick(e) {
+      this.coords = e.get('coords')
+    },
+    async update() {
+      if (this.showMap) {
+        await this.getPlace()
+        this.form.update({
+          formatted_address: this.place,
+          location: {
+            longitude: this.coords[0],
+            latitude: this.coords[1],
+          },
         })
+      }
+
+      this.form
+        .put(`/settings/profile`)
+        .then((res) => {
+          console.log(res)
+        })
+        .catch((e) => console.log(e))
     },
   },
 
@@ -147,11 +179,13 @@ export default {
   },
 
   async asyncData(context) {
+    const hasCoords = context.$auth.user.location?.coordinates
+
     const coords = [
       context.$auth.user.location?.coordinates[0] || 55.7471259277933, // default coordinates if null (Moscow city)
       context.$auth.user.location?.coordinates[1] || 37.61220483593749,
     ]
-    return { coords }
+    return { coords, hasCoords }
   },
 
   mounted() {
@@ -160,8 +194,6 @@ export default {
         this.form[key] = this.$auth.user[key]
       }
     })
-
-    this.getPlace()
   },
 }
 </script>

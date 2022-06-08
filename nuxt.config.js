@@ -51,7 +51,7 @@ export default {
   publicRuntimeConfig: {
     BASE_URL: process.env.BASE_URL,
     API_URL: process.env.API_URL,
-    YANDEX_MAPS_API_KEY: process.env.GOOGLE_MAPS_API_KEY
+    YANDEX_MAPS_API_KEY: process.env.YANDEX_MAPS_API_KEY
   },
 
   axios: {
