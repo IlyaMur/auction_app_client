@@ -58,8 +58,12 @@ const routes = [
     component: page('user/designs/edit'),
   },
   {
+    path: '/map',
+    name: 'map',
+    component: page('map'),
+  },
+  {
     path: '/settings',
-    name: 'settings',
     component: page('user/settings'),
     children: [
       { path: '', redirect: { name: 'settings.dashboard' } },

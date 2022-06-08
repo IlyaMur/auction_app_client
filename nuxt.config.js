@@ -24,6 +24,7 @@ export default {
   plugins: [
     '~plugins/bootstrap.js',
     { src: '~plugins/vform', mode: 'client' },
+    { src: '~plugins/ymapPlugin', mode: 'client' },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -50,6 +51,7 @@ export default {
   publicRuntimeConfig: {
     BASE_URL: process.env.BASE_URL,
     API_URL: process.env.API_URL,
+    YANDEX_MAPS_API_KEY: process.env.GOOGLE_MAPS_API_KEY
   },
 
   axios: {

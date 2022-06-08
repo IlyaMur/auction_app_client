@@ -29,7 +29,34 @@
               >
               </base-input>
             </div>
-            <div class="form-group">Местоположение</div>
+            <div class="form-group">
+              <span class="font-16">Выберите местоположение:</span>
+
+              <p class="font-14 mb-3 mt-1">
+                {{ place }}
+                <br />
+                {{ coords[0] | roundCoords }} /
+                {{ coords[1] | roundCoords }}
+              </p>
+
+              <template>
+                <yandex-map
+                  :coords="coords"
+                  :controls="['searchControl']"
+                  :init-without-markers="false"
+                  :zoom="10"
+                  @click="onClick"
+                  @actionend="onActionEnd"
+                >
+                  <ymap-marker
+                    @click="onClick"
+                    :coords="coords"
+                    marker-id="123"
+                    hint-content="Где Вы сейчас находитесь?"
+                  />
+                </yandex-map>
+              </template>
+            </div>
             <div class="form-group">
               <base-textarea
                 :form="form"
@@ -75,6 +102,8 @@ import { Form } from 'vform'
 export default {
   data() {
     return {
+      place: '',
+      coords: [],
       form: new Form({
         name: '',
         about: '',
@@ -86,18 +115,60 @@ export default {
     }
   },
   methods: {
+    onClick(e) {
+      this.coords = e.get('coords')
+    },
+    onActionEnd() {
+      this.getPlace()
+    },
     update() {},
+    async getPlace() {
+      await this.$axios
+        .get(
+          'https://geocode-maps.yandex.ru/1.x/?apikey=' +
+            this.$config.YANDEX_MAPS_API_KEY +
+            '&format=json' +
+            '&geocode=' +
+            this.coords[1] +
+            ',' +
+            this.coords[0]
+        )
+        .then((res) => {
+          this.place =
+            res.data.response.GeoObjectCollection.featureMember[1].GeoObject.description
+        })
+    },
   },
+
+  filters: {
+    roundCoords(values) {
+      return Math.round(values * 100) / 100
+    },
+  },
+
+  async asyncData(context) {
+    const coords = [
+      context.$auth.user.location?.coordinates[0] || 55.7471259277933, // default coordinates if null (Moscow city)
+      context.$auth.user.location?.coordinates[1] || 37.61220483593749,
+    ]
+    return { coords }
+  },
+
   mounted() {
     Object.keys(this.form).forEach((key) => {
       if (this.$auth.user.hasOwnProperty(key)) {
         this.form[key] = this.$auth.user[key]
       }
     })
-    this.form.location = {
-      longitude: this.$auth.user.location.coordinates[0],
-      latitude: this.$auth.user.location.coordinates[1],
-    }
+
+    this.getPlace()
   },
 }
 </script>
+
+<style>
+.ymap-container {
+  height: 375px;
+  width: 375px;
+}
+</style>
