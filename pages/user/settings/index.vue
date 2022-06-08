@@ -9,10 +9,10 @@
               v-for="link in links"
               :key="link.route"
               class="list-group-item list-group-item-action"
-              :to="{name: link.route}"
-              >Update Profile</nuxt-link
+              :to="{ name: link.route }"
             >
-
+              {{ link.title }}
+            </nuxt-link>
           </div>
         </div>
 
@@ -29,14 +29,15 @@
 
 <script>
 export default {
+  middleware: ['auth'],
   data() {
     return {
       links: [
         { title: 'Панель управления', route: 'settings.dashboard' },
         { title: 'Настройки профиля', route: 'settings.profile' },
+        { title: 'Дизайны', route: 'settings.designs' },
       ],
     }
   },
 }
 </script>
-
