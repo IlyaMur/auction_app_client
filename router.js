@@ -79,6 +79,11 @@ const routes = [
       }
     ]
   },
+  {
+    path: '/designs/',
+    name: 'designs.search',
+    component: page('designs/search'),
+  },
 ]
 
 export function createRouter() {

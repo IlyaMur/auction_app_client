@@ -21,10 +21,16 @@
       <div class="collapse navbar-collapse" id="navbar">
         <ul class="navbar-nav font-14 fw-300">
           <li class="nav-item active">
-            <a class="nav-link" href="#" title="Shots">Дизайны</a>
+            <nuxt-link
+              :to="{ name: 'designs.search' }"
+              class="nav-link"
+              title="Дизайны"
+            >
+            Дизайны
+            </nuxt-link>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#" title="Designers"> Дизайнеры </a>
+            <a class="nav-link" href="#" title="Designers"> Художники </a>
           </li>
         </ul>
         <div class="header-search">

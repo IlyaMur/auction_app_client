@@ -4,13 +4,13 @@
       <div class="row align-items-center">
         <div class="col-md-4">
           <div class="footer-links font-12 fw-300;">
-            <a href="#">Privacy</a>
+            <a href="#">Конфиденциальность</a>
             <span>/</span>
-            <a href="#">Terms and Conditions</a>
+            <a href="#">Условия и положения</a>
           </div>
         </div>
         <div class="col-md-4 text-center">
-          <p class="font-14 fw-300">©2022 Project. All rights reserved.</p>
+          <p class="font-14 fw-300">2022 © Муратов Илья</p>
         </div>
         <div class="col-md-4 text-right">
           <div class="footer-social">
