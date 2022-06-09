@@ -3,7 +3,7 @@
     <div
       class="bg-white rounded shadow-sm overflow-hidden flex-1 flex flex-col p-1"
     >
-      <a :href="`/dashboard/${design.slug}`">
+      <nuxt-link :to="{ name: 'designs.show', params: { slug: design.slug } }">
         <div
           class="bg-cover h-48"
           :style="{ 'background-image': `url('${design.images.thumbnail}')` }"
@@ -18,7 +18,8 @@
             </div>
           </div>
         </div>
-      </a>
+      </nuxt-link>
+
       <div class="p-1 d-flex flex-column">
         <div
           class="mb-0 text-secondary d-flex justify-content-between align-items-center"

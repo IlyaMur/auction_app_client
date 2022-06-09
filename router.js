@@ -84,6 +84,11 @@ const routes = [
     name: 'designs.search',
     component: page('designs/search'),
   },
+  {
+    path: '/designs/:slug',
+    name: 'designs.show',
+    component: page('designs/show'),
+  },
 ]
 
 export function createRouter() {
