@@ -32,6 +32,7 @@ export default {
     '~components/_global/buttons/',
     '~components/_global/inputs/',
     '~components/_global/cards/',
+    '~components/design/',
   ],
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
