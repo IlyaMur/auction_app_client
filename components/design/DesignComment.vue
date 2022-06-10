@@ -6,8 +6,11 @@
       </a>
     </div>
     <div class="comment-meta">
-      <h3 class="font-16 fw-500 mb-2">
-        <a href="#" title="Neba">{{ comment.user.name }}</a>
+      <h3 class="font-16 fw-500 mb-2 d-flex justify-content-between">
+        <a href="#" title="user">{{ comment.user.name }}</a>
+        <span v-if="design.user.id === comment.user.id">
+          <span style="color: black; font-size: 0.8rem">Author</span>
+        </span>
       </h3>
       <p class="font-14 fw-300 mb-2">{{ comment.body }}</p>
       <span class="font-14 fw-300 d-flex justify-content-between">
@@ -55,4 +58,3 @@ export default {
   },
 }
 </script>
-
