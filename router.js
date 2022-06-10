@@ -10,7 +10,8 @@ const routes = [
   {
     path: '/',
     name: 'index',
-    component: page('index'),
+    component: page('designs/search'),
+
   },
   {
     path: '/login',
@@ -80,7 +81,7 @@ const routes = [
     ]
   },
   {
-    path: '/designs/',
+    path: '/designs',
     name: 'designs.search',
     component: page('designs/search'),
   },

@@ -34,16 +34,10 @@
               Ваше местоположение:
               {{ form.formatted_address }}
             </template>
-            <div class="form-group mt-2 custom-control custom-checkbox">
-              <input
-                type="checkbox"
-                class="custom-control-input"
-                id="showMap"
-                v-model="showMap"
-              />
-              <label class="custom-control-label" value="true" for="showMap">
-                {{ hasCoords ? 'Изменить' : 'Указать' }} местоположение
-              </label>
+            <div class="form-group mt-2">
+              <button class="btn btn-dark" @click.prevent="toggleMap">
+                {{ hasCoords ? 'Изменить' : 'Указать' }} местоположение на карте
+              </button>
             </div>
 
             <div class="form-group" v-if="showMap">
@@ -148,6 +142,9 @@ export default {
         console.log(error)
       }
     },
+    toggleMap() {
+      this.showMap = !this.showMap
+    },
     onClick(e) {
       this.coords = e.get('coords')
     },
@@ -161,6 +158,8 @@ export default {
             latitude: this.coords[1],
           },
         })
+
+        this.hasCoords = true
       }
 
       await this.form

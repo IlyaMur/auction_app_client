@@ -7,7 +7,7 @@
       </h1>
       <p>{{ error.message }}</p>
       <p class="font-14 fw-400 text-center mt-4">
-        <nuxt-link :to="{ name: 'index' }">На главную</nuxt-link>
+        <a href="/">На главную</a>
       </p>
     </div>
   </section>
