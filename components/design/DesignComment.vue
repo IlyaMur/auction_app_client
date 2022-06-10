@@ -9,7 +9,7 @@
       <h3 class="font-16 fw-500 mb-2 d-flex justify-content-between">
         <a href="#" title="user">{{ comment.user.name }}</a>
         <span v-if="design.user.id === comment.user.id">
-          <span style="color: black; font-size: 0.8rem">Author</span>
+          <span style="color: black; font-size: 0.8rem">Автор</span>
         </span>
       </h3>
       <p class="font-14 fw-300 mb-2">{{ comment.body }}</p>

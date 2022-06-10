@@ -84,23 +84,12 @@
                 <!-- End Designer info -->
                 <!-- Designer Design Info -->
                 <ul class="details-side-meta font-14 fw-400">
-                  <li class="d-table w-100">
-                    <div class="stats-txt d-table-cell w-50">
-                      <a href="#">
-                        <span>
-                          <i class="fa fa-heart"></i>
-                        </span>
-                        Лайкнуть
-                      </a>
-                    </div>
-                    <div class="stats-num d-table-cell w-50 text-right">
-                      {{ design.likes_count }} лайков
-                    </div>
-                  </li>
-
+                  <design-like
+                    :design="design"
+                  />
                   <li class="d-table w-100 author-previews-border mt-1">
                     <div class="stats-txt d-table-cell w-100">
-                      Больше работ от {{ design.user.name }}
+                      Больше работ от {{ design.user.name }}:
                     </div>
                   </li>
                 </ul>
