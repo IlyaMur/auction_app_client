@@ -94,7 +94,7 @@
                       </a>
                     </div>
                     <div class="stats-num d-table-cell w-50 text-right">
-                      <a href="#">{{ design.likes_count }} лайков</a>
+                      {{ design.likes_count }} лайков
                     </div>
                   </li>
 
@@ -108,28 +108,11 @@
                 <!-- Designer More Designs -->
                 <div class="more-designs-outer pb-3">
                   <ul class="more-designs row">
-                    <li
-                      class="col-md-6"
+                    <design-preview
                       v-for="preview in previewDesigns"
                       :key="preview.id"
-                    >
-                      <nuxt-link
-                        class="img-container w-100"
-                        :to="{
-                          name: 'designs.show',
-                          params: { slug: preview.slug },
-                        }"
-                      >
-                        <img
-                          class="image w-100"
-                          :src="preview.images.thumbnail"
-                          alt="Image"
-                        />
-                        <div class="overlay">
-                          <div class="text">{{ preview.title }}</div>
-                        </div>
-                      </nuxt-link>
-                    </li>
+                      :preview="preview"
+                    />
                   </ul>
                 </div>
                 <!-- End Designer More Designs -->
@@ -172,9 +155,10 @@ export default {
   async asyncData({ $axios, params, error }) {
     try {
       const design = (await $axios.$get(`/designs/slug/` + params.slug)).data
+
       const previewDesigns = (
         await $axios.$get(`/users/${design.user.id}/designs/preview`)
-      ).data
+      ).data.filter((preview) => preview.id !== design.id)
 
       return { comments: design.comments, design, previewDesigns }
     } catch (e) {
@@ -203,46 +187,6 @@ export default {
 </script>
 
 <style scoped>
-.img-container {
-  position: relative;
-  width: 50%;
-}
-
-.image {
-  display: block;
-  width: 100%;
-  height: auto;
-}
-
-.overlay {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 100%;
-  width: 100%;
-  opacity: 0;
-  transition: 0.5s ease;
-  background-color: grey;
-}
-
-.img-container:hover .overlay {
-  opacity: 0.5;
-}
-
-.text {
-  color: white;
-  font-size: 1rem;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  -webkit-transform: translate(-50%, -50%);
-  -ms-transform: translate(-50%, -50%);
-  transform: translate(-50%, -50%);
-  text-align: center;
-}
-
 .author-previews-border {
   border-bottom: none;
 }
