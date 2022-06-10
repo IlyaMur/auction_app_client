@@ -38,6 +38,26 @@
                 </ul>
               </div>
 
+              <template v-if="$auth.loggedIn">
+                <form @submit.prevent="save">
+                  <base-textarea
+                    :rows="2"
+                    :form="form"
+                    field="body"
+                    v-model.trim="form.body"
+                    placeholder="Ваш комментарий..."
+                  />
+                  <div class="mt-2 text-right">
+                    <base-button
+                      class="btn btn-primary primary-bg-color font-16 fw-500"
+                      :loading="form.busy"
+                      size="sm"
+                    >
+                      Отправить</base-button
+                    >
+                  </div>
+                </form>
+              </template>
               <!--/ END COMMENTS-->
             </div>
 
@@ -46,17 +66,19 @@
               <div class="post-detail-sidebar">
                 <!-- Designer info -->
                 <div class="modal-user-meta white-bg-color">
-                  <a class="float-left" href="#" title="Neba">
-                    <img src="assets/images/profile.png" alt="Neba" />
+                  <a class="float-left" href="#" title="avatar">
+                    <img :src="design.user.photo_url" alt="author_avatar" />
                   </a>
                   <div class="modal-user-detail">
                     <h1 class="font-13 fw-500">
-                      <a href="#"> John Doe </a>
+                      <a href="#"> {{ design.user.name }} </a>
                     </h1>
                     <p class="font-12 fw-300 mt-1">
-                      <span class="shot-by">Sr. UI Designer</span>
+                      <span class="shot-by">{{ design.user.tagline }}</span>
                     </p>
-                    <p class="font-12 fw-300 mt-1">13 days ago</p>
+                    <p class="font-12 fw-300 mt-1">
+                      {{ design.created_at_dates.created_at_human }}
+                    </p>
                   </div>
                 </div>
                 <!-- End Designer info -->
@@ -68,17 +90,17 @@
                         <span>
                           <i class="fa fa-heart"></i>
                         </span>
-                        Like
+                        Лайкнуть
                       </a>
                     </div>
                     <div class="stats-num d-table-cell w-50 text-right">
-                      <a href="#">100 Likes</a>
+                      <a href="#">{{ design.likes_count }} лайков</a>
                     </div>
                   </li>
 
-                  <li class="d-table w-100">
+                  <li class="d-table w-100 author-previews-border mt-1">
                     <div class="stats-txt d-table-cell w-100">
-                      <a href="#"> More from John Doe </a>
+                      Больше работ от {{ design.user.name }}
                     </div>
                   </li>
                 </ul>
@@ -86,41 +108,27 @@
                 <!-- Designer More Designs -->
                 <div class="more-designs-outer pb-3">
                   <ul class="more-designs row">
-                    <li class="col-md-6">
-                      <a href="#">
+                    <li
+                      class="col-md-6"
+                      v-for="preview in previewDesigns"
+                      :key="preview.id"
+                    >
+                      <nuxt-link
+                        class="img-container w-100"
+                        :to="{
+                          name: 'designs.show',
+                          params: { slug: preview.slug },
+                        }"
+                      >
                         <img
-                          class="w-100"
-                          src="assets/images/among_trees_night_dribbble.png"
+                          class="image w-100"
+                          :src="preview.images.thumbnail"
                           alt="Image"
                         />
-                      </a>
-                    </li>
-                    <li class="col-md-6">
-                      <a href="#">
-                        <img
-                          class="w-100"
-                          src="assets/images/among_trees_night_dribbble.png"
-                          alt="Image"
-                        />
-                      </a>
-                    </li>
-                    <li class="col-md-6">
-                      <a href="#">
-                        <img
-                          class="w-100"
-                          src="assets/images/among_trees_night_dribbble.png"
-                          alt="Image"
-                        />
-                      </a>
-                    </li>
-                    <li class="col-md-6">
-                      <a href="#">
-                        <img
-                          class="w-100"
-                          src="assets/images/among_trees_night_dribbble.png"
-                          alt="Image"
-                        />
-                      </a>
+                        <div class="overlay">
+                          <div class="text">{{ preview.title }}</div>
+                        </div>
+                      </nuxt-link>
                     </li>
                   </ul>
                 </div>
@@ -152,15 +160,23 @@
 </template>
 
 <script>
+import { Form } from 'vform'
 export default {
   data() {
-    return {}
+    return {
+      form: new Form({
+        body: '',
+      }),
+    }
   },
   async asyncData({ $axios, params, error }) {
     try {
       const design = (await $axios.$get(`/designs/slug/` + params.slug)).data
+      const previewDesigns = (
+        await $axios.$get(`/users/${design.user.id}/designs/preview`)
+      ).data
 
-      return { comments: design.comments, design }
+      return { comments: design.comments, design, previewDesigns }
     } catch (e) {
       if (e.response.status === 404) {
         error({ statusCode: 404, message: 'Дизайн не был найден' })
@@ -173,8 +189,61 @@ export default {
     handleDelete(id) {
       this.comments = this.comments.filter((comment) => comment.id !== id)
     },
+    save() {
+      this.form
+        .post(`/designs/${this.design.id}/comments`)
+        .then((res) => {
+          this.form.reset()
+          this.comments = [...this.comments, res.data.data]
+        })
+        .catch((e) => console.log(e))
+    },
   },
 }
 </script>
 
-<style></style>
+<style scoped>
+.img-container {
+  position: relative;
+  width: 50%;
+}
+
+.image {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: 0.5s ease;
+  background-color: grey;
+}
+
+.img-container:hover .overlay {
+  opacity: 0.5;
+}
+
+.text {
+  color: white;
+  font-size: 1rem;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.author-previews-border {
+  border-bottom: none;
+}
+</style>

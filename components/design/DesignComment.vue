@@ -45,7 +45,7 @@ export default {
   computed: {
     canDelete() {
       // only comment's author or design's author can delete a comment
-      const currentUser = this.$auth.user.id
+      const currentUser = this.$auth.user?.id
       return (
         this.$auth.loggedIn &&
         (currentUser === this.comment.user.id ||
