@@ -25,7 +25,7 @@
                 :form="form"
                 field="tagline"
                 v-model="form.tagline"
-                placeholder="Девиз"
+                placeholder="Чем занимаетесь"
               >
               </base-input>
             </div>

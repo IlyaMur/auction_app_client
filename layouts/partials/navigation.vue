@@ -4,7 +4,6 @@
       <nuxt-link
         :to="{ name: 'index' }"
         class="navbar-brand text-uppercase fw-500"
-        title="Project Name"
         >MyDesign</nuxt-link
       >
       <button
@@ -26,7 +25,7 @@
               class="nav-link"
               title="Дизайны"
             >
-            Дизайны
+              Дизайны
             </nuxt-link>
           </li>
           <li class="nav-item">
@@ -53,7 +52,8 @@
           class="upload-shot white-path font-14 fw-500 text-uppercase mr-auto"
         >
           <nuxt-link
-            class="primary-bg-color text-white"
+          style="width: auto; padding: 3px"
+            class="primary-bg-color text-white d-flex justify-content-between align-items-center"
             :to="{ name: 'designs.upload' }"
           >
             <i class="fas fa-cloud-upload-alt"></i> Загрузка
@@ -136,7 +136,7 @@
                 @click.prevent="logout"
                 class="dropdown-item"
                 href="#"
-                title="Sign Out"
+                title="Выход"
               >
                 <i class="fa fa-lock"></i>
                 Выход
