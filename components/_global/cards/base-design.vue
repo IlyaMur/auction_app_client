@@ -26,7 +26,7 @@
         >
           <a href="#" class="d-flex text-muted">
             <div>
-              <nuxt-img
+              <img
                 :src="design.user.photo_url"
                 width="20"
                 class="profile rounded mr-2"

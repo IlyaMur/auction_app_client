@@ -16,7 +16,7 @@
           <tr v-for="design in designs.data" :key="design.id">
             <td>
               <template v-if="design.images">
-                <nuxt-img
+                <img
                   width="100"
                   :src="design.images.thumbnail"
                   class="w-100 mb-4"

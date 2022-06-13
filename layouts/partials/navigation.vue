@@ -87,7 +87,7 @@
               aria-haspopup="true"
               aria-expanded="false"
             >
-              <nuxt-img
+              <img
                 :src="$auth.user.data.photo_url"
                 class="user-thumb"
                 alt="user avatar"

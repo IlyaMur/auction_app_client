@@ -11,7 +11,7 @@
         <div class="col-md-6">
           <div class="card">
             <div class="card-body p-1" v-if="design.data.images">
-              <nuxt-img :src="design.data.images.large" class="w-100 mb-4" />
+              <img :src="design.data.images.large" class="w-100 mb-4" />
             </div>
           </div>
         </div>

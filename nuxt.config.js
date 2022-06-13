@@ -100,10 +100,10 @@ export default {
         provider: 'laravel/jwt',
         url: process.env.API_URL,
         endpoints: {
-          login: { url: '/login', method: 'post', propertyName: null },
-          refresh: { url: '/refresh', method: 'post', propertyName: null },
-          user: { url: '/me', method: 'get', propertyName: null },
-          logout: { url: '/logout', method: 'post', propertyName: null },
+          login: { url: '/login', method: 'post' },
+          refresh: { url: '/refresh', method: 'post' },
+          user: { url: '/me', method: 'get' },
+          logout: { url: '/logout', method: 'post' },
         },
         token: {
           property: 'access_token',
