@@ -49,7 +49,7 @@ export default {
   methods: {
     async fetchUserDesigns() {
       const { data } = await this.$axios.get(
-        `/users/${this.$auth.user.id}/designs`
+        `/users/${this.$auth.user.data.id}/designs`
       )
 
       this.designs = data

@@ -178,19 +178,19 @@ export default {
   },
 
   async asyncData(context) {
-    const hasCoords = Boolean(context.$auth.user.location?.coordinates)
+    const hasCoords = Boolean(context.$auth.user.data.location?.coordinates)
 
     const coords = [
-      context.$auth.user.location?.coordinates[0] || 55.7471259277933, // default coordinates if null (Moscow city)
-      context.$auth.user.location?.coordinates[1] || 37.61220483593749,
+      context.$auth.user.data.location?.coordinates[0] || 55.7471259277933, // default coordinates if null (Moscow city)
+      context.$auth.user.data.location?.coordinates[1] || 37.61220483593749,
     ]
     return { coords, hasCoords }
   },
 
   mounted() {
     Object.keys(this.form).forEach((key) => {
-      if (this.$auth.user.hasOwnProperty(key)) {
-        this.form[key] = this.$auth.user[key]
+      if (this.$auth.user.data.hasOwnProperty(key)) {
+        this.form[key] = this.$auth.user.data[key]
       }
     })
   },

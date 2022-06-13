@@ -75,22 +75,44 @@ export default {
     ],
   },
 
+  // auth: {
+  //   strategies: {
+  //     local: {
+  //       token: {
+  //         property: 'token',
+  //         global: true,
+  //       },
+  //       user: {
+  //         property: 'data',
+  //       },
+  //       endpoints: {
+  // login: { url: '/login', method: 'post' },
+  // logout: { url: '/logout', method: 'post' },
+  // user: { url: '/me', method: 'get' }
+  //       }
+  //     }
+  //   }
+  // }
+
   auth: {
     strategies: {
-      local: {
-        token: {
-          property: 'token',
-          global: true,
-        },
-        user: {
-          property: 'data',
-        },
+      'laravelJWT': {
+        provider: 'laravel/jwt',
+        url: process.env.API_URL,
         endpoints: {
-          login: { url: '/login', method: 'post' },
-          logout: { url: '/logout', method: 'post' },
-          user: { url: '/me', method: 'get' }
-        }
-      }
+          login: { url: '/login', method: 'post', propertyName: null },
+          refresh: { url: '/refresh', method: 'post', propertyName: null },
+          user: { url: '/me', method: 'get', propertyName: null },
+          logout: { url: '/logout', method: 'post', propertyName: null },
+        },
+        token: {
+          property: 'access_token',
+          maxAge: 60 * 60
+        },
+        refreshToken: {
+          maxAge: 20160 * 60
+        },
+      },
     }
   }
 }

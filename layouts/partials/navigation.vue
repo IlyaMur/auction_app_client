@@ -88,16 +88,16 @@
               aria-expanded="false"
             >
               <nuxt-img
-                :src="$auth.user.photo_url"
+                :src="$auth.user.data.photo_url"
                 class="user-thumb"
                 alt="user avatar"
               />
               <div class="usr-info">
                 <span class="user-name font-14 fw-500">{{
-                  $auth.user.name
+                  $auth.user.data.name
                 }}</span>
                 <span class="user-deg font-10 fw-300">{{
-                  $auth.user.tagline || ''
+                  $auth.user.data.tagline || ''
                 }}</span>
                 <span class="down-chevron">
                   <i class="fa fa-angle-down"></i>
