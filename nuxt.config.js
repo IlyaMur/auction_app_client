@@ -25,6 +25,7 @@ export default {
     '~plugins/bootstrap.js',
     { src: '~plugins/vform', mode: 'client' },
     { src: '~plugins/ymapPlugin', mode: 'client' },
+    { src: '~plugins/lightbox', mode: 'client' },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

@@ -9,7 +9,20 @@
               <!-- Single Image -->
               <div class="post-detail">
                 <div class="single-img">
-                  <img :src="design.images.large" alt="Image" />
+                  <div>
+                    <!-- all props & events -->
+                    <vue-easy-lightbox
+                      escDisabled
+                      moveDisabled
+                      :visible="visible"
+                      :imgs="design.images.large"
+                      :index="0"
+                      @hide="handleHide"
+                    >
+                    </vue-easy-lightbox>
+                  </div>
+
+                  <img @click="show" :src="design.images.large" alt="Image" />
                 </div>
               </div>
               <!-- End Single Image -->
@@ -106,13 +119,16 @@
                 <!-- Designs Tags -->
                 <div class="designs-tag-outer mt-3">
                   <h2 class="font-16 fw-500 mb-2">Tags</h2>
-                  <div class="designs-tag font-14 fw-300" v-if="design.tag_list">
+                  <div
+                    class="designs-tag font-14 fw-300"
+                    v-if="design.tag_list"
+                  >
                     <a
                       v-for="(tag, i) in design.tag_list.tags"
                       :key="`tag-${i}`"
                       :href="`/tags/${design.tag_list.normalized[i]}`"
                     >
-                      {{tag}}</a
+                      {{ tag }}</a
                     >
                   </div>
                 </div>
@@ -132,6 +148,7 @@ import { Form } from 'vform'
 export default {
   data() {
     return {
+      visible: false,
       form: new Form({
         body: '',
       }),
@@ -155,6 +172,12 @@ export default {
     }
   },
   methods: {
+    show() {
+      this.visible = true
+    },
+    handleHide() {
+      this.visible = false
+    },
     handleDelete(id) {
       this.comments = this.comments.filter((comment) => comment.id !== id)
     },
