@@ -97,15 +97,22 @@
       </div>
     </section>
     <section class="cards-block">
-      <div class="container">
-        <div class="row">
-          <base-design
-            v-for="design in designs"
-            :key="design.id"
-            :design="design"
-          >
-          </base-design>
-        </div>
+      <div class="container d-flex justify-content-center">
+        <template v-if="!loading">
+          <div class="row">
+            <base-design
+              v-for="design in designs"
+              :key="design.id"
+              :design="design"
+            >
+            </base-design>
+          </div>
+        </template>
+        <template v-else>
+          <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+          </div>
+        </template>
       </div>
     </section>
   </div>
@@ -115,6 +122,7 @@
 export default {
   data() {
     return {
+      loading: true,
       designs: [],
       searching: false,
       filters: {
@@ -136,7 +144,10 @@ export default {
     search() {
       this.$axios
         .$get(`/search/designs?${this.queryString}`)
-        .then((res) => (this.designs = res.data))
+        .then((res) => {
+          this.loading = false
+          this.designs = res.data
+        })
         .catch((e) => console.log(e))
         .finally(() => (this.searching = false))
     },

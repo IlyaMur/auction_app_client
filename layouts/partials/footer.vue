@@ -14,11 +14,11 @@
         </div>
         <div class="col-md-4 text-right">
           <div class="footer-social">
-            <a href="#" title="Facebook">
-              <i class="fab fa-facebook-square"></i>
-            </a>
-            <a href="#" title="twitter">
-              <i class="fab fa-twitter-square"></i>
+            <a
+              href="https://github.com/IlyaMur/auction_app_api"
+              title="Facebook"
+            >
+              <i class="fab fa-github-square"></i>
             </a>
           </div>
         </div>
@@ -36,7 +36,7 @@ export default {}
   .fixed-bottom {
     max-height: 50px;
   }
-  .hide-when-mobile{
+  .hide-when-mobile {
     display: none !important;
   }
 }

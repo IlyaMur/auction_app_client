@@ -90,6 +90,11 @@ const routes = [
     name: 'designs.show',
     component: page('designs/show'),
   },
+  {
+    path: '/user/:name',
+    name: 'users.profile',
+    component: page('user/profile/profile.vue'),
+  },
 ]
 
 export function createRouter() {

@@ -4,7 +4,7 @@
       <nuxt-link
         :to="{ name: 'index' }"
         class="navbar-brand text-uppercase fw-500"
-        >MyDesign</nuxt-link
+        >MyDesigns</nuxt-link
       >
       <button
         class="navbar-toggler mr-auto"
@@ -63,7 +63,7 @@
 
       <!-- Before Login -->
       <template v-if="!$auth.loggedIn">
-        <ul class="before-login font-14 fw-300 text-uppercase">
+        <ul class="before-login font-14 fw-300 text-uppercase mr-3">
           <li>
             <nuxt-link style="min-width: 110px" :to="{ name: 'register' }">
               Регистрация

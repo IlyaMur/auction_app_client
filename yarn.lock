@@ -1541,6 +1541,11 @@
   "resolved" "https://registry.npmjs.org/@polka/url/-/url-1.0.0-next.21.tgz"
   "version" "1.0.0-next.21"
 
+"@smartweb/vue-flash-message@^0.6.10":
+  "integrity" "sha512-ceDUUzXI6FDscev36kZQvc2BO+MayOt6uJ2HSh9zoOkfa0PVIhmaoB56InlTTsK7MmlSIvPJpRB+Habdx3MtNw=="
+  "resolved" "https://registry.npmjs.org/@smartweb/vue-flash-message/-/vue-flash-message-0.6.10.tgz"
+  "version" "0.6.10"
+
 "@types/eslint@^7.28.2":
   "integrity" "sha512-VNcvioYDH8/FxaeTKkM4/TiTwt6pBV9E3OfGmvaw8tPl0rrHCJ4Ll15HRT+pMiFAf/MLQvAzC+6RzUMEL9Ceng=="
   "resolved" "https://registry.npmjs.org/@types/eslint/-/eslint-7.29.0.tgz"

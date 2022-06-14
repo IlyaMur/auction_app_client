@@ -2,6 +2,7 @@
   <li class="col-md-6">
     <nuxt-link
       class="img-container w-100"
+      style="overflow: hidden"
       :to="{
         name: 'designs.show',
         params: { slug: preview.slug },

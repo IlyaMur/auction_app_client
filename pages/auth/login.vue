@@ -1,5 +1,6 @@
 <template>
   <section class="authentication">
+    <FlashMessage style="z-index: 10000"></FlashMessage>
     <div class="auth-body">
       <h1 class="text-uppercase fw-500 mb-4 text-center font-22">Вход</h1>
       <form @submit.prevent="submit" class="auth-form">
@@ -70,7 +71,20 @@ export default {
       }),
     }
   },
+  mounted() {
+    if (this.$route.query.msg === 'needLogin') {
+      this.showMsg()
+    }
+  },
   methods: {
+    showMsg() {
+      this.flashMessage.show({
+        status: 'error',
+        title: 'Сюда пока нельзя!',
+        message: 'Пожалуйста войдите в свой аккаунт или зарегистрируйтесь.',
+        time: 2000,
+      })
+    },
     submit() {
       this.$auth
         .loginWith('laravelJWT', {

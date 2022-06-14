@@ -3,6 +3,11 @@
 @import 'imports/_style';
 
 /* CUSTOM CSS */
+html {
+    overflow-x: hidden;
+    margin-right: calc(-1 * (100vw - 100%));
+}
+
 .list-group-item.router-link-active {
   color: #fff !important;
   background-color: #37a9ff !important;

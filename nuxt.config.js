@@ -26,6 +26,7 @@ export default {
     { src: '~plugins/vform', mode: 'client' },
     { src: '~plugins/ymapPlugin', mode: 'client' },
     { src: '~plugins/lightbox', mode: 'client' },
+    { src: '~/plugins/flash-message.js', mode: 'client' },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -76,26 +77,13 @@ export default {
     ],
   },
 
-  // auth: {
-  //   strategies: {
-  //     local: {
-  //       token: {
-  //         property: 'token',
-  //         global: true,
-  //       },
-  //       user: {
-  //         property: 'data',
-  //       },
-  //       endpoints: {
-  // login: { url: '/login', method: 'post' },
-  // logout: { url: '/logout', method: 'post' },
-  // user: { url: '/me', method: 'get' }
-  //       }
-  //     }
-  //   }
-  // }
-
   auth: {
+    redirect: {
+      login: '/login?msg=needLogin',
+      home: '/',
+      logout: '/',
+      callback: false,
+    },
     strategies: {
       'laravelJWT': {
         provider: 'laravel/jwt',

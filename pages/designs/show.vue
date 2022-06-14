@@ -79,12 +79,16 @@
               <div class="post-detail-sidebar">
                 <!-- Designer info -->
                 <div class="modal-user-meta white-bg-color">
-                  <a class="float-left" href="#" title="avatar">
+                  <nuxt-link
+                    class="float-left"
+                    :to="{name: 'users.profile', params: {name: design.user.username}}"
+                    title="avatar"
+                  >
                     <img :src="design.user.photo_url" alt="author_avatar" />
-                  </a>
+                  </nuxt-link>
                   <div class="modal-user-detail">
                     <h1 class="font-13 fw-500">
-                      <a href="#"> {{ design.user.name }} </a>
+                      <nuxt-link :to="{name: 'users.profile', params: {name: design.user.username}}"> {{ design.user.name }} </nuxt-link>
                     </h1>
                     <p class="font-12 fw-300 mt-1">
                       <span class="shot-by">{{ design.user.tagline }}</span>
