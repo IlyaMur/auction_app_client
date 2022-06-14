@@ -1,5 +1,23 @@
 <template>
   <div>
+    <section
+      v-if="!$auth.loggedIn"
+      class="hero text-center bg-light shadow-sm text-blue"
+    >
+      <div class="container">
+        <h1 class="font-28 fw-600 text-uppercase">
+          Над чем сейчас кипит работа?
+        </h1>
+        <p class="font-16 fw-400">
+          MyDesigns место, где дизайнеры находят вдохновение
+        </p>
+        <nuxt-link
+          :to="{ name: 'register' }"
+          class="mt-4 btn btn-danger font-16 fw-400"
+          >Присоединяйтесь!</nuxt-link
+        >
+      </div>
+    </section>
     <section class="filters-block shadow-sm">
       <div class="container">
         <form v-on:submit.prevent="searchByButton">
@@ -145,5 +163,4 @@ export default {
     justify-content: center !important;
   }
 }
-
 </style>
