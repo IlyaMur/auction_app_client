@@ -52,7 +52,7 @@
           class="upload-shot white-path font-14 fw-500 text-uppercase mr-auto"
         >
           <nuxt-link
-          style="width: auto; padding: 3px"
+          style="max-width: 100px; padding: 3px"
             class="primary-bg-color text-white d-flex justify-content-between align-items-center"
             :to="{ name: 'designs.upload' }"
           >

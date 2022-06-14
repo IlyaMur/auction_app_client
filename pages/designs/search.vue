@@ -6,13 +6,12 @@
           <div
             class="filters d-flex justify-content-between align-items-center"
           >
-            <ul class="filters-dropdown">
+            <ul class="filters-dropdown hide-when-mobile">
               <li class="dropdown">
                 <select
                   @change="search"
                   v-model="filters.orderBy"
                   class="custom-select"
-                  style="width: 200px"
                 >
                   <option value="latest">Сначала свежие</option>
                   <option value="likes">Больше лайков</option>
@@ -20,32 +19,38 @@
               </li>
             </ul>
             <div class="d-flex align-items-center">
-              <div class="custom-control mr-3 custom-checkbox">
-                <input
-                  type="checkbox"
-                  class="custom-control-input"
-                  id="hasComments"
-                  v-model="filters.has_comments"
-                  true-value="1"
-                  false-value="0"
-                />
-                <label class="custom-control-label" for="hasComments"
-                  >С комментариями</label
-                >
+              <div
+                class="custom-control mr-3 custom-checkbox d-flex flex-column"
+                style="align-items: flex-start; gap: 3px"
+              >
+                <div>
+                  <input
+                    type="checkbox"
+                    class="custom-control-input p-3"
+                    id="hasComments"
+                    v-model="filters.has_comments"
+                    true-value="1"
+                    false-value="0"
+                  />
+                  <label class="custom-control-label" for="hasComments"
+                    >С комм-ми</label
+                  >
+                </div>
+                <div>
+                  <input
+                    type="checkbox"
+                    class="custom-control-input"
+                    id="hasTeam"
+                    v-model="filters.has_team"
+                    true-value="1"
+                    false-value="0"
+                  />
+                  <label class="custom-control-label" for="hasTeam"
+                    >С командой</label
+                  >
+                </div>
               </div>
-              <div class="custom-control custom-checkbox mr-3">
-                <input
-                  type="checkbox"
-                  class="custom-control-input"
-                  id="hasTeam"
-                  v-model="filters.has_team"
-                  true-value="1"
-                  false-value="0"
-                />
-                <label class="custom-control-label" for="hasTeam"
-                  >С командой</label
-                >
-              </div>
+              <div class="custom-control custom-checkbox mr-3"></div>
               <div>
                 <div class="input-group mb-0">
                   <input
@@ -130,3 +135,15 @@ export default {
   },
 }
 </script>
+
+<style scoped>
+@media screen and (max-width: 700px) {
+  .hide-when-mobile {
+    display: none;
+  }
+  .filters {
+    justify-content: center !important;
+  }
+}
+
+</style>

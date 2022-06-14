@@ -2,8 +2,8 @@
   <footer class="fixed-bottom">
     <div class="container">
       <div class="row align-items-center">
-        <div class="col-md-4">
-          <div class="footer-links font-12 fw-300;">
+        <div class="col-md-4 hide-when-mobile">
+          <div class="footer-links font-12 fw-300">
             <a href="#">Конфиденциальность</a>
             <span>/</span>
             <a href="#">Условия и положения</a>
@@ -31,4 +31,13 @@
 export default {}
 </script>
 
-<style></style>
+<style scoped>
+@media screen and (max-width: 770px) {
+  .fixed-bottom {
+    max-height: 50px;
+  }
+  .hide-when-mobile{
+    display: none !important;
+  }
+}
+</style>

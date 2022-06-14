@@ -1,7 +1,7 @@
 <template>
   <div>
     <SiteNavigation></SiteNavigation>
-    <div class="wrapper">
+    <div>
       <nuxt />
     </div>
     <SiteFooter></SiteFooter>
