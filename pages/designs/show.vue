@@ -9,7 +9,7 @@
             <div class="col-md-8">
               <!-- Single Image -->
               <div class="post-detail">
-                <div class="single-img">
+                <div class="single-img" style="cursor: pointer">
                   <div>
                     <!-- all props & events -->
                     <vue-easy-lightbox
@@ -25,6 +25,7 @@
 
                   <img @click="show" :src="design.images.large" alt="Image" />
                 </div>
+                <p style="stats-txt">mytest</p>
               </div>
               <!-- End Single Image -->
               <!-- Design Detail Text -->
@@ -79,9 +80,13 @@
             <div class="col-md-4">
               <div class="post-detail-sidebar">
                 <!-- Designer info -->
-                <div class="modal-user-meta white-bg-color">
+                <div
+                  class="modal-user-meta white-bg-color"
+                  style="cursor: pointer"
+                >
                   <nuxt-link
                     class="float-left"
+                    style="cursor: pointer"
                     :to="{
                       name: 'users.profile',
                       params: { name: design.user.username },
@@ -93,6 +98,7 @@
                   <div class="modal-user-detail">
                     <h1 class="font-13 fw-500">
                       <nuxt-link
+                        style="cursor: pointer"
                         :to="{
                           name: 'users.profile',
                           params: { name: design.user.username },
@@ -205,9 +211,9 @@ export default {
       this.flashMessage.show({
         status: 'success',
         title: 'Комментарий успешно удалён.',
-        time: 20000,
+        time: 2000,
         x: 0,
-        y: 50
+        y: 50,
       })
     },
     save() {
