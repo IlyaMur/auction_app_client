@@ -31,10 +31,11 @@
 export default {}
 </script>
 
-<style scoped>
+<style>
 @media screen and (max-width: 770px) {
   .fixed-bottom {
     max-height: 50px;
+    z-index: 1 !important;
   }
   .hide-when-mobile {
     display: none !important;

@@ -1,5 +1,6 @@
 <template>
   <section class="post-details mt-4 pb-5">
+    <FlashMessage style="z-index: 5000"></FlashMessage>
     <div class="container">
       <div class="row justify-content-center">
         <div class="col-md-9">
@@ -81,14 +82,24 @@
                 <div class="modal-user-meta white-bg-color">
                   <nuxt-link
                     class="float-left"
-                    :to="{name: 'users.profile', params: {name: design.user.username}}"
+                    :to="{
+                      name: 'users.profile',
+                      params: { name: design.user.username },
+                    }"
                     title="avatar"
                   >
                     <img :src="design.user.photo_url" alt="author_avatar" />
                   </nuxt-link>
                   <div class="modal-user-detail">
                     <h1 class="font-13 fw-500">
-                      <nuxt-link :to="{name: 'users.profile', params: {name: design.user.username}}"> {{ design.user.name }} </nuxt-link>
+                      <nuxt-link
+                        :to="{
+                          name: 'users.profile',
+                          params: { name: design.user.username },
+                        }"
+                      >
+                        {{ design.user.name }}
+                      </nuxt-link>
                     </h1>
                     <p class="font-12 fw-300 mt-1">
                       <span class="shot-by">{{ design.user.tagline }}</span>
@@ -127,12 +138,15 @@
                     class="designs-tag font-14 fw-300"
                     v-if="design.tag_list"
                   >
-                    <a
+                    <nuxt-link
                       v-for="(tag, i) in design.tag_list.tags"
                       :key="`tag-${i}`"
-                      :href="`/tags/${design.tag_list.normalized[i]}`"
+                      :to="{
+                        name: 'designs.tag',
+                        params: { tag: design.tag_list.normalized[i] },
+                      }"
                     >
-                      {{ tag }}</a
+                      {{ tag }}</nuxt-link
                     >
                   </div>
                 </div>
@@ -185,6 +199,16 @@ export default {
     },
     handleDelete(id) {
       this.comments = this.comments.filter((comment) => comment.id !== id)
+      this.showMsg()
+    },
+    showMsg() {
+      this.flashMessage.show({
+        status: 'success',
+        title: 'Комментарий успешно удалён.',
+        time: 20000,
+        x: 0,
+        y: 50
+      })
     },
     save() {
       this.form
@@ -202,5 +226,8 @@ export default {
 <style scoped>
 .author-previews-border {
   border-bottom: none;
+}
+._vue-flash-msg-body_success {
+  z-index: 5000;
 }
 </style>

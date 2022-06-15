@@ -6,6 +6,7 @@
     <section class="cards-block">
       <template v-if="!loading">
         <div class="container">
+          <h1>Работы по тэгу: #{{ this.$route.params.tag }}</h1>
           <div class="row">
             <base-design
               v-for="design in designs"
@@ -30,37 +31,31 @@
 
 <script>
 export default {
-  async asyncData({ $axios, params, error }) {
-    const designs = $axios
-      .$get(`/tags/` + params.tag)
-      .then((res) => {})
+  data() {
+    return {
+      loading: true,
+      designs: '',
+    }
+  },
+  // async asyncData({ $axios, params, error }) {
+  //   const designs = $axios
+  //     .$get(`/designs/tag/` + params.tag)
+  //     .then((res) => {})
+  //     .catch((e) => console.log(e))
+  //     .finally(() => (this.searching = false))
+
+  //   return { designs }
+  // },
+  methods: {},
+  beforeMount() {
+    this.$axios
+      .$get(`/designs/tag/` + this.$route.params.tag)
+      .then((res) => {
+        this.loading = false
+        this.designs = res.data
+      })
       .catch((e) => console.log(e))
       .finally(() => (this.searching = false))
-
-    return { designs }
-  },
-
-  methods: {
-    searchByFilter() {
-      this.search()
-    },
-    searchByButton() {
-      this.searching = true
-      this.search()
-    },
-    search() {
-      this.$axios
-        .$get(`/tags/`)
-        .then((res) => {
-          this.loading = false
-          this.designs = res.data
-        })
-        .catch((e) => console.log(e))
-        .finally(() => (this.searching = false))
-    },
-  },
-  beforeMount() {
-    this.search()
   },
 }
 </script>
