@@ -93,7 +93,12 @@ const routes = [
   {
     path: '/user/:name',
     name: 'users.profile',
-    component: page('user/profile/profile.vue'),
+    component: page('user/profile/profile'),
+  },
+  {
+    path: '/tags/:tag',
+    name: 'designs.tag',
+    component: page('designs/bytag'),
   },
 ]
 

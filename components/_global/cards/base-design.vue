@@ -56,6 +56,10 @@
                 <i class="fas fa-comments"></i>
                 {{ design.comments_count }}
               </li>
+              <li class="pt-0 list-inline-item">
+                <i class="fas fa-eye"></i>
+                {{ design.views }}
+              </li>
             </ul>
           </div>
         </div>

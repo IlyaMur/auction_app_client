@@ -31,14 +31,15 @@
                   v-model="filters.orderBy"
                   class="custom-select"
                 >
-                  <option value="latest">Сначала свежие</option>
+                  <option value="popular">Популярные</option>
                   <option value="likes">Больше лайков</option>
+                  <option value="latest">Сначала свежие</option>
                 </select>
               </li>
             </ul>
             <div class="d-flex align-items-center">
               <div
-                class="custom-control mr-3 custom-checkbox d-flex flex-column"
+                class="custom-control custom-checkbox d-flex flex-column"
                 style="align-items: flex-start; gap: 3px"
               >
                 <div>
@@ -51,7 +52,7 @@
                     false-value="0"
                   />
                   <label class="custom-control-label" for="hasComments"
-                    >С комм-ми</label
+                    >С комментариями</label
                   >
                 </div>
                 <div>
@@ -132,7 +133,7 @@ export default {
         has_team: 0,
         has_comments: 0,
         q: '',
-        orderBy: 'likes',
+        orderBy: 'popular',
       },
     }
   },
