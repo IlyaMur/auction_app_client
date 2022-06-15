@@ -33,9 +33,10 @@
           </li>
         </ul>
         <div class="header-search">
-          <form action="" method="">
+          <form @submit.prevent="submit" action="" method="">
             <div class="form-group">
               <input
+                v-model="q"
                 type="text"
                 autocomplete="OFF"
                 name="search"
@@ -52,7 +53,7 @@
           class="upload-shot white-path font-14 fw-500 text-uppercase mr-auto"
         >
           <nuxt-link
-          style="max-width: 100px; padding: 3px"
+            style="max-width: 100px; padding: 3px"
             class="primary-bg-color text-white d-flex justify-content-between align-items-center"
             :to="{ name: 'designs.upload' }"
           >
@@ -154,7 +155,15 @@
 
 <script>
 export default {
+  data() {
+    return {
+      q: '',
+    }
+  },
   methods: {
+    submit() {
+      window.location.replace('/designs/?q=' + this.q)
+    },
     logout() {
       this.$auth.logout()
     },

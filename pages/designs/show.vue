@@ -158,6 +158,7 @@ export default {
       }),
     }
   },
+
   async asyncData({ $axios, params, error }) {
     try {
       const design = (await $axios.$get(`/designs/slug/` + params.slug)).data

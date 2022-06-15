@@ -97,8 +97,8 @@
       </div>
     </section>
     <section class="cards-block">
-      <div class="container d-flex justify-content-center">
-        <template v-if="!loading">
+      <template v-if="!loading">
+        <div class="container">
           <div class="row">
             <base-design
               v-for="design in designs"
@@ -107,8 +107,11 @@
             >
             </base-design>
           </div>
-        </template>
-        <template v-else>
+        </div>
+      </template>
+
+      <div v-else class="container d-flex justify-content-center">
+        <template>
           <div class="spinner-border" role="status">
             <span class="sr-only">Loading...</span>
           </div>
@@ -153,6 +156,10 @@ export default {
     },
   },
   beforeMount() {
+    if (this.$route.query.q) {
+      this.filters.q = this.$route.query.q
+    }
+
     this.search()
   },
   computed: {
