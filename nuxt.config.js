@@ -16,6 +16,10 @@ export default {
         'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/js/all.min.js'
     }],
   },
+  loading: {
+    color: 'green',
+    height: '3px',
+  },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: ['@/assets/scss/main.scss', 'bootstrap/dist/css/bootstrap.css'],

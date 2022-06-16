@@ -96,6 +96,11 @@ const routes = [
     component: page('user/profile/profile'),
   },
   {
+    path: '/designers',
+    name: 'users.search',
+    component: page('user/search/search'),
+  },
+  {
     path: '/tags/:tag',
     name: 'designs.tag',
     component: page('designs/bytag'),

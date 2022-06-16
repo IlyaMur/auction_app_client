@@ -29,7 +29,13 @@
             </nuxt-link>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#" title="Designers"> Художники </a>
+            <nuxt-link
+              :to="{ name: 'users.search' }"
+              class="nav-link"
+              title="Designers"
+            >
+              Художники
+            </nuxt-link>
           </li>
         </ul>
         <div class="header-search">
