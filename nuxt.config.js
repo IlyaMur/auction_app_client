@@ -26,7 +26,7 @@ export default {
     { src: '~plugins/vform', mode: 'client' },
     { src: '~plugins/ymapPlugin', mode: 'client' },
     { src: '~plugins/lightbox', mode: 'client' },
-    { src: '~/plugins/flash-message.js', mode: 'client' },
+    { src: '~/plugins/flash-message', mode: 'client' },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -34,6 +34,7 @@ export default {
     '~components/_global/buttons/',
     '~components/_global/inputs/',
     '~components/_global/cards/',
+    '~components/_global/spinners/',
     '~components/design/',
   ],
 

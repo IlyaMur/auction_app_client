@@ -27,7 +27,7 @@
             <ul class="filters-dropdown hide-when-mobile">
               <li class="dropdown">
                 <select
-                  @change="search"
+                  @change="getResults"
                   v-model="filters.orderBy"
                   class="custom-select"
                 >
@@ -102,7 +102,7 @@
         <div class="container">
           <div class="row">
             <base-design
-              v-for="design in designs"
+              v-for="design in designs.data"
               :key="design.id"
               :design="design"
             >
@@ -110,24 +110,31 @@
           </div>
         </div>
       </template>
-
-      <div v-else class="container d-flex justify-content-center">
-        <template>
-          <div class="spinner-border" role="status">
-            <span class="sr-only">Loading...</span>
-          </div>
-        </template>
-      </div>
+      <base-spinner v-else />
     </section>
+    <div class="d-flex justify-content-center" style="margin-bottom: 60px">
+      <Pagination :data="designs" @pagination-change-page="getResults">
+        <template #prev-nav>
+          <span>&lt; Назад</span>
+        </template>
+        <template #next-nav>
+          <span>Вперед &gt;</span>
+        </template>
+      </Pagination>
+    </div>
   </div>
 </template>
 
 <script>
+import LaravelVuePagination from 'laravel-vue-pagination'
 export default {
+  components: {
+    Pagination: LaravelVuePagination,
+  },
   data() {
     return {
       loading: true,
-      designs: [],
+      designs: {},
       searching: false,
       filters: {
         has_team: 0,
@@ -139,18 +146,18 @@ export default {
   },
   methods: {
     searchByFilter() {
-      this.search()
+      this.getResults()
     },
     searchByButton() {
       this.searching = true
-      this.search()
+      this.getResults()
     },
-    search() {
+    getResults(page = 1) {
       this.$axios
-        .$get(`/search/designs?${this.queryString}`)
+        .$get(`/search/designs?${this.queryString}&page=` + page)
         .then((res) => {
           this.loading = false
-          this.designs = res.data
+          this.designs = res
         })
         .catch((e) => console.log(e))
         .finally(() => (this.searching = false))
@@ -161,7 +168,7 @@ export default {
       this.filters.q = this.$route.query.q
     }
 
-    this.search()
+    this.getResults()
   },
   computed: {
     queryString() {

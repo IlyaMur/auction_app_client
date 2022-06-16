@@ -19,6 +19,7 @@
     "bootstrap-vue": "^2.22.0",
     "core-js": "^3.19.3",
     "jquery": "^3.6.0",
+    "laravel-vue-pagination": "^2.3.1",
     "nuxt": "^2.15.8",
     "popper.js": "^1.16.1",
     "vform": "^2.1.2",

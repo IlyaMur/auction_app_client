@@ -14,7 +14,7 @@
             <h5 class="fw-500 text-uppercase mb-2">{{ design.title }}</h5>
             <p class="font-12 lh-16">{{ design.description }}</p>
             <div class="card-datetime font-10 fw-300">
-              {{ design.updated_at_dates.updated_at_human }}
+              {{ design.created_at_dates.created_at_human }}
             </div>
           </div>
         </div>
@@ -42,7 +42,7 @@
             </h3>
           </a>
           <div class="mr-1 font-10 flex-2">
-            {{ design.updated_at_dates.updated_at_human }}
+            {{ design.created_at_dates.created_at_human }}
           </div>
         </div>
         <div class="card-datetime fw-300 d-flex justify-content-center">

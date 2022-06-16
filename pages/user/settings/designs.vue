@@ -3,7 +3,7 @@
     <div class="setting-title font-16 fw-500">Дизайны</div>
 
     <div class="setting-body white-bg-color">
-      <table class="table table-striped">
+      <table class="table table-striped" v-if="!loading">
         <thead>
           <tr>
             <td></td>
@@ -35,6 +35,7 @@
           </tr>
         </tbody>
       </table>
+      <base-spinner v-else />
     </div>
   </div>
 </template>
@@ -43,16 +44,21 @@
 export default {
   data() {
     return {
+      loading: true,
       designs: [],
     }
   },
   methods: {
     async fetchUserDesigns() {
-      const { data } = await this.$axios.get(
-        `/users/${this.$auth.user.data.id}/designs`
-      )
-
-      this.designs = data
+      try {
+        const { data } = await this.$axios.get(
+          `/users/${this.$auth.user.data.id}/designs`
+        )
+        this.designs = data
+        this.loading = false
+      } catch (error) {
+        console.log(error.response)
+      }
     },
   },
 

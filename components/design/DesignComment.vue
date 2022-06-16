@@ -26,7 +26,7 @@
           </h3>
           <p class="font-14 fw-300 mb-2">{{ comment.body }}</p>
           <span class="font-14 fw-300 d-flex justify-content-between">
-            <a href="#">{{ comment.created_at_dates.created_at_human }}</a>
+            <span>{{ comment.created_at_dates.created_at_human }}</span>
             <span v-if="canDelete">
               <a href="#" @click.prevent="destroyComment" class="text-danger"
                 >Удалить</a

@@ -9,7 +9,7 @@
           <h1>Работы по тэгу: #{{ this.$route.params.tag }}</h1>
           <div class="row">
             <base-design
-              v-for="design in designs"
+              v-for="design in designs.data"
               :key="design.id"
               :design="design"
             >
@@ -17,45 +17,49 @@
           </div>
         </div>
       </template>
-
-      <div v-else class="container d-flex justify-content-center">
-        <template>
-          <div class="spinner-border" role="status">
-            <span class="sr-only">Loading...</span>
-          </div>
-        </template>
-      </div>
+      <base-spinner v-else />
     </section>
+    <div class="d-flex justify-content-center" style="margin-bottom: 60px">
+      <Pagination :data="designs" @pagination-change-page="getResults">
+        <template #prev-nav>
+          <span>&lt; Назад</span>
+        </template>
+        <template #next-nav>
+          <span>Вперед &gt;</span>
+        </template>
+      </Pagination>
+    </div>
   </div>
 </template>
 
 <script>
+import LaravelVuePagination from 'laravel-vue-pagination'
+
 export default {
+  components: {
+    Pagination: LaravelVuePagination,
+  },
   data() {
     return {
       loading: true,
-      designs: '',
+      designs: {},
     }
   },
-  // async asyncData({ $axios, params, error }) {
-  //   const designs = $axios
-  //     .$get(`/designs/tag/` + params.tag)
-  //     .then((res) => {})
-  //     .catch((e) => console.log(e))
-  //     .finally(() => (this.searching = false))
 
-  //   return { designs }
-  // },
-  methods: {},
+  methods: {
+    getResults(page = 1) {
+      this.$axios
+        .get(`/designs/tag/${this.$route.params.tag}?page=` + page)
+        .then((res) => {
+          this.loading = false
+          this.designs = res.data
+        })
+        .catch((e) => console.log(e))
+        .finally(() => (this.searching = false))
+    },
+  },
   beforeMount() {
-    this.$axios
-      .$get(`/designs/tag/` + this.$route.params.tag)
-      .then((res) => {
-        this.loading = false
-        this.designs = res.data
-      })
-      .catch((e) => console.log(e))
-      .finally(() => (this.searching = false))
+    this.getResults()
   },
 }
 </script>

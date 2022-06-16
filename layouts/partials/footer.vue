@@ -1,5 +1,5 @@
 <template>
-  <footer class="fixed-bottom">
+  <footer class="fixed-bottom mt-10" style="margin-top:1050px">
     <div class="container">
       <div class="row align-items-center">
         <div class="col-md-4 hide-when-mobile">
