@@ -25,7 +25,7 @@
                 <input type="text" v-model="filters.distance" /> единицы:
                 <select v-model="filters.unit" class="mt-2">
                   <option value="km">км</option>
-                  <option value="m">миль</option>
+                  <option value="m">мили</option>
                 </select>
                 <br />
                 <hr />
@@ -57,7 +57,6 @@
                 >
               </div>
               <button
-                :disabled="!hasCoords"
                 class="btn btn-primary mt-2"
                 @click="getResults"
               >
@@ -73,18 +72,22 @@
           <!-- Section Designers -->
           <section class="all-designers">
             <!-- Filters -->
-            <div class="designers-meta white-bg-color">
+            <div class="designers-meta white-bg-color p-2">
               <div class="row align-items-center">
                 <div class="col-md-3"></div>
                 <div class="col-md-9 text-right">
                   <ul class="sort-list hover-state active-state font-14 fw-400">
                     <li>Сортировать:</li>
                     <li>
-                      <a class="active" href="#" title="views">По просмотрам</a>
+                      <a href="#" title="views">По просмотрам</a>
                     </li>
                     <li>-</li>
                     <li>
                       <a href="#" title="rating">По рейтингу</a>
+                    </li>
+                    <li>-</li>
+                    <li>
+                      <a href="#" :class="{ 'active': true }" title="rating">Ближайшие</a>
                     </li>
                   </ul>
                 </div>
@@ -95,13 +98,28 @@
               <li v-if="designers.data[0]">
                 <div class="row">
                   <div class="col-lg-6 pr-0 clearfix">
-                    <div class="designer-img float-left">
-                      <img :src="designers.data[0].photo_url" alt="designer" />
-                    </div>
+                    <nuxt-link :to="{name: 'users.profile', params: {name: designers.data[0].username}}">
+                      <div class="designer-img float-left">
+                        <img :src="designers.data[0].photo_url" alt="designer" />
+                      </div>
+                    </nuxt-link>
                     <designer-card
                       :unit="filters.unit"
                       :designer="designers.data[0]"
                     />
+                    <Pagination
+                      :limit="-1"
+                      class="mt-3"
+                      :data="designers"
+                      @pagination-change-page="getResults"
+                    >
+                      <template #prev-nav>
+                        <span>&lt; Предыдущий</span>
+                      </template>
+                      <template #next-nav>
+                        <span>Следующий &gt;</span>
+                      </template>
+                    </Pagination>
                   </div>
 
                   <!-- Author Cards -->
@@ -128,21 +146,8 @@
                 <div>Никто не найден :(. Попробуйте другие фильтры поиска</div>
               </li>
             </ul>
-            <base-spinner v-else></base-spinner>
+            <base-spinner v-else class="mt-3"></base-spinner>
           </section>
-          <Pagination
-            :limit="-1"
-            class="mt-3 position-absolute"
-            :data="designers"
-            @pagination-change-page="getResults"
-          >
-            <template #prev-nav>
-              <span>&lt; Предыдущий</span>
-            </template>
-            <template #next-nav>
-              <span>Следующий &gt;</span>
-            </template>
-          </Pagination>
         </div>
       </div>
     </div>
@@ -183,7 +188,9 @@ export default {
     },
     async getPlace() {
       this.checkCoords()
+
       if (!this.hasCoords) return
+
       try {
         const resp = await this.$axios.$get(
           'https://geocode-maps.yandex.ru/1.x/?apikey=' +
@@ -205,7 +212,14 @@ export default {
       }
     },
     checkCoords() {
-      this.hasCoords = this.city === '' ? false : true
+      if (this.city === '') {
+        this.hasCoords = false
+        this.filters.latitude = ''
+        this.filters.longitude = ''
+        return
+      }
+
+      this.hasCoords = true
     },
   },
   components: {
@@ -217,8 +231,6 @@ export default {
   computed: {
     queryString() {
       this.filters.distance ||= 100
-      // this.filters.latitude ||= 55.7471259277933
-      // this.filters.longitude ||= 37.61220483593749
       return Object.keys(this.filters)
         .filter((k) => this.filters[k] !== '')
         .map((k) => `${k}=${this.filters[k]}`)

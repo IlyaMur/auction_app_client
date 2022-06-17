@@ -1,10 +1,16 @@
 <template>
   <div class="designer-meta">
     <div class="designer-title hover-state">
-      <a class="font-16 fw-500" href="#" title="Neba Funwi-Gabga">{{
-        designer.name
-      }}</a>
+      <nuxt-link
+        class="font-16 fw-500"
+        :to="{ name: 'users.profile', params: { name: designer.username } }"
+        title="name"
+        >{{ designer.name }}</nuxt-link
+      >
     </div>
+    <p class="mt-1 mb-1" style="color: red">
+      {{ designer.available_to_hire ? 'Открыт для предложений' : ''}}
+    </p>
     <div
       v-if="designer.formatted_address"
       class="designer-address font-14 fw-300 mt-1"
