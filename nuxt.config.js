@@ -40,6 +40,7 @@ export default {
     '~components/_global/cards/',
     '~components/_global/spinners/',
     '~components/design/',
+    '~components/designer/',
   ],
 
   // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules

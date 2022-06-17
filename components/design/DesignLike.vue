@@ -1,8 +1,8 @@
 <template>
   <li class="d-table w-100">
     <div class="stats-txt d-table-cell w-50">
-      <div v-if="!loading">
-        <a href="" @click.prevent="likeDesign" v-if="$auth.loggedIn">
+      <div v-if="$auth.loggedIn && !loading">
+        <a href="" @click.prevent="likeDesign">
           <template v-if="current_user_likes">
             <span>
               <i class="fas fa-thumbs-down fa-2x text-danger"></i>
@@ -61,7 +61,12 @@ export default {
     },
   },
   beforeMount() {
-    this.checkIfCurrentUserLikes()
+    if (this.$auth.loggedIn) {
+      this.checkIfCurrentUserLikes()
+    } else {
+      this.loading = false
+    }
+
     this.total_likes = this.design.likes_count
   },
 }

@@ -13,7 +13,7 @@
                 >
                 <input
                   @change="getPlace"
-                  v-model="filters.city"
+                  v-model="city"
                   type="text"
                   name="skills"
                   class="form-control form-control-lg white-bg-color font-14 fw-300 mt-1"
@@ -21,13 +21,16 @@
                 />
               </div>
               <div class="form-group mb-3">
-                в радиусе <input type="text" v-model="filters.radius" />
-                <select v-model="filters.mesure">
+                в радиусе:
+                <input type="text" v-model="filters.distance" /> единицы:
+                <select v-model="filters.unit" class="mt-2">
                   <option value="km">км</option>
                   <option value="m">миль</option>
                 </select>
-
-                <button class="btn btn-primary mt-2">Поиск</button>
+                <br />
+                <button class="btn btn-primary mt-2" @click="getResults">
+                  Поиск
+                </button>
               </div>
               <!-- <div class="form-group mb-3">Place skills</div> -->
             </div>
@@ -63,295 +66,54 @@
               </div>
             </div>
             <!--/ end filters -->
-            <ul class="designer-listing" v-if="!loading">
-              <li>
-                <div class="row align-items-center">
-                  <div class="col-lg-4 pr-0 clearfix">
+            <ul class="designer-listing mt-3" v-if="!loading">
+              <li v-if="designers.data[0]">
+                <div class="row">
+                  <div class="col-lg-6 pr-0 clearfix">
                     <div class="designer-img float-left">
-                      <img src="assets/images/profile.png" alt="Neba" />
+                      <img :src="designers.data[0].photo_url" alt="designer" />
                     </div>
-                    <div class="designer-meta">
-                      <div class="designer-title hover-state">
-                        <a
-                          class="font-16 fw-500"
-                          href="#"
-                          title="Neba Funwi-Gabga"
-                          >Neba Funwi-Gabga</a
-                        >
-                      </div>
-                      <div class="designer-address font-14 fw-300 mt-1">
-                        San Francisco, CA /
-                        <a href="#"><strong>115,000</strong> followers</a>
-                      </div>
-                      <ul class="icon-list white-path mt-2">
-                        <li>
-                          <a
-                            class="secondary-bg-color text-white font-12"
-                            href="#"
-                          >
-                            <i class="fas fa-plus"></i>
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            class="secondary-bg-color text-white active font-12"
-                            href="#"
-                          >
-                            <i class="fas fa-share"></i>
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            class="primary-bg-color text-white font-12"
-                            href="#"
-                          >
-                            <i class="fas fa-envelope"></i>
-                          </a>
-                        </li>
-                        <li>
-                          <a
-                            class="secondary-bg-color text-white font-12"
-                            href="#"
-                          >
-                            <i class="fas fa-list"></i>
-                          </a>
-                        </li>
-                      </ul>
-                      <p class="font-13 fw-300 mt-1">
-                        Agency in SF, NY, LA and Iceland. Clients: Google,
-                        Reuters, Apple, Facebook, Uber, ESPN, Red Bull, Samsung,
-                        Airbnb, V...
-                      </p>
-                      <ul class="tags-list font-12 fw-300 mt-1 hover-state">
-                        <li>
-                          <a href="#" title="illustration">illustration</a>
-                        </li>
-                        ,
-                        <li>
-                          <a href="#" title="logo">logo</a>
-                        </li>
-                        ,
-                        <li>
-                          <a href="#" title="icon">icon</a>
-                        </li>
-                        ,
-                        <li>
-                          <a href="#" title="strategy">strategy</a>
-                        </li>
-                      </ul>
-                    </div>
+                    <designer-card :unit="filters.unit" :designer="designers.data[0]" />
                   </div>
 
                   <!-- Author Cards -->
-                  <div class="col-lg-8">
+                  <div class="col-lg-5">
                     <div class="card-slide">
                       <!-- ITEM -->
                       <div class="card-outer">
-                        <div class="card">
-                          <a href="#">
-                            <img
-                              class="card-img-top"
-                              src="http://via.placeholder.com/350x250"
-                              alt="louies secondary marks"
-                            />
-                          </a>
-                          <div class="card-body py-2 text-center">
-                            <h5
-                              class="card-title hover-state font-14 fw-500 mb-2"
-                            >
-                              <a class="title" href="#">
-                                <span>Shot Title</span>
-                              </a>
-                            </h5>
-                            <p class="card-text font-12 fw-400">
-                              <a href="#">
-                                <span>8 hrs ago</span>
-                              </a>
-                            </p>
-                          </div>
-                        </div>
+                        <preview-img
+                        class="mt-2"
+                          v-for="design in designers.data[0].designs"
+                          :key="design.id"
+                          :design="design"
+                        ></preview-img>
+
                       </div>
 
                       <!-- ITEM -->
-                      <div class="card-outer">
-                        <div class="card">
-                          <a href="#">
-                            <img
-                              class="card-img-top"
-                              src="http://via.placeholder.com/350x250"
-                              alt="louies secondary marks"
-                            />
-                          </a>
-                          <div class="card-body py-2 text-center">
-                            <h5
-                              class="card-title hover-state font-14 fw-500 mb-2"
-                            >
-                              <a class="title" href="#">
-                                <span>Shot Title</span>
-                              </a>
-                            </h5>
-                            <p class="card-text font-12 fw-400">
-                              <a href="#">
-                                <span>8 hrs ago</span>
-                              </a>
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-
-                      <!-- ITEM -->
-                      <div class="card-outer">
-                        <div class="card">
-                          <a href="#">
-                            <img
-                              class="card-img-top"
-                              src="http://via.placeholder.com/350x250"
-                              alt="louies secondary marks"
-                            />
-                          </a>
-                          <div class="card-body py-2 text-center">
-                            <h5
-                              class="card-title hover-state font-14 fw-500 mb-2"
-                            >
-                              <a class="title" href="#">
-                                <span>Shot Title</span>
-                              </a>
-                            </h5>
-                            <p class="card-text font-12 fw-400">
-                              <a href="#">
-                                <span>8 hrs ago</span>
-                              </a>
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-
-                      <!-- ITEM -->
-                      <div class="card-outer">
-                        <div class="card">
-                          <a href="#">
-                            <img
-                              class="card-img-top"
-                              src="http://via.placeholder.com/350x250"
-                              alt="louies secondary marks"
-                            />
-                          </a>
-                          <div class="card-body py-2 text-center">
-                            <h5
-                              class="card-title hover-state font-14 fw-500 mb-2"
-                            >
-                              <a class="title" href="#">
-                                <span>Shot Title</span>
-                              </a>
-                            </h5>
-                            <p class="card-text font-12 fw-400">
-                              <a href="#">
-                                <span>8 hrs ago</span>
-                              </a>
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-
-                      <!-- ITEM -->
-                      <div class="card-outer">
-                        <div class="card">
-                          <a href="#">
-                            <img
-                              class="card-img-top"
-                              src="http://via.placeholder.com/350x250"
-                              alt="louies secondary marks"
-                            />
-                          </a>
-                          <div class="card-body py-2 text-center">
-                            <h5
-                              class="card-title hover-state font-14 fw-500 mb-2"
-                            >
-                              <a class="title" href="#">
-                                <span>Shot Title</span>
-                              </a>
-                            </h5>
-                            <p class="card-text font-12 fw-400">
-                              <a href="#">
-                                <span>8 hrs ago</span>
-                              </a>
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-
-                      <!-- ITEM -->
-                      <div class="card-outer">
-                        <div class="card">
-                          <a href="#">
-                            <img
-                              class="card-img-top"
-                              src="http://via.placeholder.com/350x250"
-                              alt="louies secondary marks"
-                            />
-                          </a>
-                          <div class="card-body py-2 text-center">
-                            <h5
-                              class="card-title hover-state font-14 fw-500 mb-2"
-                            >
-                              <a class="title" href="#">
-                                <span>Shot Title</span>
-                              </a>
-                            </h5>
-                            <p class="card-text font-12 fw-400">
-                              <a href="#">
-                                <span>8 hrs ago</span>
-                              </a>
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-
-                      <!-- ITEM -->
-                      <div class="card-outer">
-                        <div class="card">
-                          <a href="#">
-                            <img
-                              class="card-img-top"
-                              src="http://via.placeholder.com/350x250"
-                              alt="louies secondary marks"
-                            />
-                          </a>
-                          <div class="card-body py-2 text-center">
-                            <h5
-                              class="card-title hover-state font-14 fw-500 mb-2"
-                            >
-                              <a class="title" href="#">
-                                <span>Shot Title</span>
-                              </a>
-                            </h5>
-                            <p class="card-text font-12 fw-400">
-                              <a href="#">
-                                <span>8 hrs ago</span>
-                              </a>
-                            </p>
-                          </div>
-                        </div>
-                      </div>
 
                       <!-- END SLICK CAROUSEL -->
                     </div>
                   </div>
                 </div>
               </li>
+              <li class="d-flex justify-content-center mt-5" v-else>
+                <div>Никто не найден :(. Попробуйте другие фильтры поиска</div>
+              </li>
             </ul>
             <base-spinner v-else></base-spinner>
           </section>
           <Pagination
-            class="mt-3"
+            :limit="-1"
+            class="mt-3 position-absolute"
             :data="designers"
             @pagination-change-page="getResults"
           >
             <template #prev-nav>
-              <span>&lt; Назад</span>
+              <span>&lt; Предыдущий</span>
             </template>
             <template #next-nav>
-              <span>Вперед &gt;</span>
+              <span>Следующий &gt;</span>
             </template>
           </Pagination>
         </div>
@@ -369,18 +131,19 @@ export default {
       coords: '',
       loading: true,
       designers: {},
+      city: '',
       filters: {
-        mesure: 'km',
-        city: '',
-        radius: '',
+        unit: 'km',
+        distance: '',
+        latitude: '',
+        longitude: '',
       },
-      queryString: '',
     }
   },
   methods: {
     getResults(page = 1) {
       this.$axios
-        .$get(`/search/designers?${this.queryString}?page=` + page)
+        .$get(`/search/designers?${this.queryString}&page=` + page)
         .then((res) => {
           this.loading = false
           this.designers = res
@@ -395,12 +158,15 @@ export default {
             this.$config.YANDEX_MAPS_API_KEY +
             '&format=json' +
             '&geocode=' +
-            this.filters.city
+            this.city
         )
-        this.coords = (
+        const coords = (
           await resp.response.GeoObjectCollection.featureMember[1].GeoObject
             .Point.pos
         ).split(' ')
+
+        this.filters.latitude = coords[0]
+        this.filters.longitude = coords[1]
       } catch (error) {
         console.log(error)
       }
@@ -410,13 +176,16 @@ export default {
     Pagination: LaravelVuePagination,
   },
   beforeMount() {
-    if (this.$route.query.q) {
-      this.filters.q = this.$route.query.q
-    }
-
     this.getResults()
+  },
+  computed: {
+    queryString() {
+      this.filters.distance ||= 100;
+      return Object.keys(this.filters)
+        .filter((k) => this.filters[k] !== '')
+        .map((k) => `${k}=${this.filters[k]}`)
+        .join('&')
+    },
   },
 }
 </script>
-
-<style></style>

@@ -112,7 +112,7 @@
       </template>
       <base-spinner v-else />
     </section>
-    <div class="d-flex justify-content-center" style="margin-bottom: 60px">
+    <div class="d-flex justify-content-center fixed-bottom" style="margin-bottom: 60px">
       <Pagination :data="designs" @pagination-change-page="getResults">
         <template #prev-nav>
           <span>&lt; Назад</span>
