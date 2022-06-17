@@ -28,10 +28,41 @@
                   <option value="m">миль</option>
                 </select>
                 <br />
-                <button class="btn btn-primary mt-2" @click="getResults">
-                  Поиск
-                </button>
+                <hr />
               </div>
+              <div class="form-group ml-4">
+                <input
+                  type="checkbox"
+                  class="custom-control-input"
+                  id="toHire"
+                  v-model="filters.available_to_hire"
+                  true-value="1"
+                  false-value="0"
+                />
+                <label class="custom-control-label" for="toHire"
+                  >В поиске работы</label
+                >
+              </div>
+              <div class="form-group ml-4">
+                <input
+                  type="checkbox"
+                  class="custom-control-input"
+                  id="hasDesigns"
+                  v-model="filters.has_designs"
+                  true-value="1"
+                  false-value="0"
+                />
+                <label class="custom-control-label" for="hasDesigns"
+                  >Есть проекты</label
+                >
+              </div>
+              <button
+                :disabled="!hasCoords"
+                class="btn btn-primary mt-2"
+                @click="getResults"
+              >
+                Поиск
+              </button>
               <!-- <div class="form-group mb-3">Place skills</div> -->
             </div>
           </div>
@@ -44,22 +75,16 @@
             <!-- Filters -->
             <div class="designers-meta white-bg-color">
               <div class="row align-items-center">
-                <div class="col-md-3">
-                  <select class="custom-select font-14 fw-300">
-                    <option selected>Designers & Teams</option>
-                    <option value="1">Designers</option>
-                    <option value="2">Design teams</option>
-                  </select>
-                </div>
+                <div class="col-md-3"></div>
                 <div class="col-md-9 text-right">
                   <ul class="sort-list hover-state active-state font-14 fw-400">
-                    <li>Sort:</li>
+                    <li>Сортировать:</li>
                     <li>
-                      <a class="active" href="#" title="Trending">Trending</a>
+                      <a class="active" href="#" title="views">По просмотрам</a>
                     </li>
                     <li>-</li>
                     <li>
-                      <a href="#" title="Followers">Followers</a>
+                      <a href="#" title="rating">По рейтингу</a>
                     </li>
                   </ul>
                 </div>
@@ -73,7 +98,10 @@
                     <div class="designer-img float-left">
                       <img :src="designers.data[0].photo_url" alt="designer" />
                     </div>
-                    <designer-card :unit="filters.unit" :designer="designers.data[0]" />
+                    <designer-card
+                      :unit="filters.unit"
+                      :designer="designers.data[0]"
+                    />
                   </div>
 
                   <!-- Author Cards -->
@@ -82,12 +110,11 @@
                       <!-- ITEM -->
                       <div class="card-outer">
                         <preview-img
-                        class="mt-2"
+                          class="mt-2"
                           v-for="design in designers.data[0].designs"
                           :key="design.id"
                           :design="design"
                         ></preview-img>
-
                       </div>
 
                       <!-- ITEM -->
@@ -128,6 +155,7 @@ import LaravelVuePagination from 'laravel-vue-pagination'
 export default {
   data() {
     return {
+      hasCoords: false,
       coords: '',
       loading: true,
       designers: {},
@@ -137,6 +165,8 @@ export default {
         distance: '',
         latitude: '',
         longitude: '',
+        has_designs: '',
+        available_to_hire: '',
       },
     }
   },
@@ -152,6 +182,8 @@ export default {
         .finally(() => (this.searching = false))
     },
     async getPlace() {
+      this.checkCoords()
+      if (!this.hasCoords) return
       try {
         const resp = await this.$axios.$get(
           'https://geocode-maps.yandex.ru/1.x/?apikey=' +
@@ -160,8 +192,9 @@ export default {
             '&geocode=' +
             this.city
         )
+
         const coords = (
-          await resp.response.GeoObjectCollection.featureMember[1].GeoObject
+          await resp.response.GeoObjectCollection.featureMember[0].GeoObject
             .Point.pos
         ).split(' ')
 
@@ -170,6 +203,9 @@ export default {
       } catch (error) {
         console.log(error)
       }
+    },
+    checkCoords() {
+      this.hasCoords = this.city === '' ? false : true
     },
   },
   components: {
@@ -180,7 +216,9 @@ export default {
   },
   computed: {
     queryString() {
-      this.filters.distance ||= 100;
+      this.filters.distance ||= 100
+      // this.filters.latitude ||= 55.7471259277933
+      // this.filters.longitude ||= 37.61220483593749
       return Object.keys(this.filters)
         .filter((k) => this.filters[k] !== '')
         .map((k) => `${k}=${this.filters[k]}`)
